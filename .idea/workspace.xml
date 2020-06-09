@@ -3,13 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="dabc0dea-93cd-4e5f-9d06-08eeb03e9fd5" name="默认" comment="">
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/header/head.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/header/head.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frames/conversation/chatmessage/chatmessage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/frames/conversation/chatmessage/chatmessage.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frames/conversation/groupchat.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/frames/conversation/groupchat.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frames/conversation/singlechat.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/frames/conversation/singlechat.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frames/dialogue/dialogue.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/frames/dialogue/dialogue.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/router/router.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/router/router.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/service/getData.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/service/getData.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -71,6 +64,14 @@
         </counts>
       </usages-collector>
     </session>
+    <session id="-1406565859">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.open.time.1" value="1" />
+          <entry key="project.opened" value="1" />
+        </counts>
+      </usages-collector>
+    </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
@@ -92,9 +93,13 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/package-lock.json">
-          <provider selected="true" editor-type-id="text-editor" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="380">
+              <caret line="12816" lean-forward="true" selection-start-line="12816" selection-end-line="12816" />
+            </state>
+          </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -106,11 +111,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/frames/conversation/groupchat.vue">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="285">
-              <caret line="129" column="13" lean-forward="true" selection-start-line="129" selection-start-column="13" selection-end-line="129" selection-end-column="13" />
+              <caret line="129" column="13" selection-start-line="129" selection-start-column="13" selection-end-line="129" selection-end-column="13" />
               <folding>
                 <element signature="e#526#532#0" expanded="true" />
                 <element signature="e#538#544#0" expanded="true" />
@@ -123,8 +128,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="253">
-              <caret line="29" column="34" lean-forward="true" selection-start-line="29" selection-start-column="34" selection-end-line="29" selection-end-column="34" />
+            <state relative-caret-position="667">
+              <caret line="29" column="34" selection-start-line="29" selection-start-column="34" selection-end-line="29" selection-end-column="34" />
             </state>
           </provider>
         </entry>
@@ -189,6 +194,7 @@
         <option value="$PROJECT_DIR$/src/frames/conversation/singlechat.vue" />
         <option value="$PROJECT_DIR$/src/router/router.js" />
         <option value="$PROJECT_DIR$/src/frames/conversation/groupchat.vue" />
+        <option value="$PROJECT_DIR$/package-lock.json" />
       </list>
     </option>
   </component>
@@ -212,7 +218,7 @@
       <path value="$PROJECT_DIR$/package.json" />
     </packageJsonPaths>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-10" />
     <option name="width" value="980" />
     <option name="height" value="1040" />
@@ -222,63 +228,26 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
-              <item name="vue-weixin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="vue-weixin" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="vue-weixin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="vue-weixin" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="vue-weixin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="vue-weixin" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="frames" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="vue-weixin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="vue-weixin" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="frames" type="462c0819:PsiDirectoryNode" />
-              <item name="conversation" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="vue-weixin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="vue-weixin" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="frames" type="462c0819:PsiDirectoryNode" />
-              <item name="dialogue" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="vue-weixin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="vue-weixin" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="images" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="vue-weixin" type="b2602c69:ProjectViewProjectNode" />
-              <item name="vue-weixin" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="router" type="462c0819:PsiDirectoryNode" />
+              <item name="MSU" type="b2602c69:ProjectViewProjectNode" />
+              <item name="MSU" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1591175354960" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../node-weixin" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="ts.external.directory.path" value="D:\IntelliJ IDEA2018\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
@@ -310,11 +279,12 @@
       <workItem from="1591174822626" duration="530000" />
       <workItem from="1591175406922" duration="1867000" />
       <workItem from="1591674628156" duration="613000" />
+      <workItem from="1591676453430" duration="587000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="12151000" />
+    <option name="totallyTimeSpent" value="12738000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -329,7 +299,7 @@
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25670242" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.12466488" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="设计器" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -344,7 +314,7 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32907802" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="8" visible="true" weight="0.32765958" />
+      <window_info anchor="bottom" id="Terminal" order="8" visible="true" weight="0.3248227" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="10" />
       <window_info anchor="bottom" id="TypeScript" order="11" />
@@ -439,13 +409,7 @@
         <state relative-caret-position="-414" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/vuex/types/helpers.d.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1426">
-          <caret line="63" column="21" selection-start-line="63" selection-start-column="21" selection-end-line="63" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/vuex/types/helpers.d.ts" />
     <entry file="file://$PROJECT_DIR$/src/service/data/friendcircle.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-552" />
@@ -492,13 +456,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/package-lock.json">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/router/router.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="69">
           <caret line="3" selection-start-line="3" selection-end-line="3" selection-end-column="111" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="667">
+          <caret line="29" column="34" selection-start-line="29" selection-start-column="34" selection-end-line="29" selection-end-column="34" />
         </state>
       </provider>
     </entry>
@@ -534,22 +502,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="29" column="34" lean-forward="true" selection-start-line="29" selection-start-column="34" selection-end-line="29" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/frames/conversation/groupchat.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
-          <caret line="129" column="13" lean-forward="true" selection-start-line="129" selection-start-column="13" selection-end-line="129" selection-end-column="13" />
+          <caret line="129" column="13" selection-start-line="129" selection-start-column="13" selection-end-line="129" selection-end-column="13" />
           <folding>
             <element signature="e#526#532#0" expanded="true" />
             <element signature="e#538#544#0" expanded="true" />
             <element signature="e#3852#3901#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package-lock.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="12816" lean-forward="true" selection-start-line="12816" selection-end-line="12816" />
         </state>
       </provider>
     </entry>
