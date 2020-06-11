@@ -1,4 +1,4 @@
-<template>
+  <template>
 	<section>
 		<head-top crossover="true" search="true">
 			<section slot="searchpart">
@@ -20,7 +20,7 @@
 				<li v-for="item in searchlist" @click="changeValue(item.title)">{{item.title}}</li>
 			</ul>
 		</section>
-	</section>	
+	</section>
 </template>
 
 <script>
@@ -45,7 +45,7 @@
 			headTop,
 		},
 		computed:{
-			
+
 		},
 		methods:{
 			changeValue(title){

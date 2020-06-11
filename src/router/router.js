@@ -1,5 +1,5 @@
 import App from '../app'
- 
+
 const dialogue = r => require.ensure([], () => r(require('../frames/dialogue/dialogue')), 'dialogue')
 const singlechat = r => require.ensure([], () => r(require('../frames/conversation/singlechat')), 'singlechat')
 const groupchat = r => require.ensure([], () => r(require('../frames/conversation/groupchat')), 'groupchat')
@@ -33,13 +33,14 @@ const currency = r => require.ensure([], () => r(require('../frames/me/settings/
 const aboutwc = r => require.ensure([], () => r(require('../frames/me/settings/detailset/aboutwc')), 'aboutwc')
 const help = r => require.ensure([], () => r(require('../frames/me/settings/detailset/help')), 'help')
 const login = r => require.ensure([], () => r(require('../frames/me/settings/detailset/login')), 'login')
-
+const register = r => require.ensure([], () => r(require('../frames/me/settings/detailset/register')), 'register')
 export default[{
 	path:'/',
 	component:App,
 	children: [
-		{path: '', redirect: '/dialogue'},   //地址为空时跳转dialogue页面
+		{path: '', redirect: '/me/settings/login'},   //地址为空时跳转dialogue页面
 		{path: '/dialogue', component: dialogue, },//对话列表页
+    {path: '/register', component: register, },//注册
 		{
 			path: '/singlechat',
 			component: singlechat,
@@ -50,7 +51,7 @@ export default[{
 				}
 			]
 
-		},		//单人对话详情页	
+		},		//单人对话详情页
 		{
 			path: '/groupchat',
 			component: groupchat,
@@ -60,7 +61,7 @@ export default[{
 					component: groupchatmessage,
 				}
 			]
-		},			//群聊	
+		},			//群聊
 		{path: '/addressbook', component: addressbook, meta:{ keepAlive: true},
 			children: [
 				{
@@ -95,38 +96,38 @@ export default[{
 					children: [
 						{
 							path:'/me/settings/newmessage',
-							component:newmessage,		
+							component:newmessage,
 						},	//新消息提醒
 						{
 							path:'/me/settings/disturbance',
-							component:disturbance,		
+							component:disturbance,
 						},	//勿扰模式
 						{
 							path:'/me/settings/chat',
-							component:chat,		
+							component:chat,
 						},	//聊天
 						{
 							path:'/me/settings/privacy',
-							component:privacy,		
+							component:privacy,
 						},	//隐私
 						{
 							path:'/me/settings/currency',
-							component:currency,		
+							component:currency,
 						},	//通用
 						{
 							path:'/me/settings/aboutwc',
-							component:aboutwc,		
+							component:aboutwc,
 						},	//关于微信
 						{
 							path:'/me/settings/help',
-							component:help,		
+							component:help,
 						},	//帮助与反馈
 						{
 							path:'/me/settings/login',
-							component:login,		
+							component:login,
 						},	//退出
 					]
-				},	
+				},
 				{
 					path:'/me/personaldetails',component : personaldetails,		//个人信息
 				},
