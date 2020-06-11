@@ -38,7 +38,7 @@ export default[{
 	path:'/',
 	component:App,
 	children: [
-		{path: '', redirect: '/me/settings/login'},   //地址为空时跳转dialogue页面
+		{path: '', redirect: '/me/settings/login'},   //地址为空时跳转登录页面
 		{path: '/dialogue', component: dialogue, },//对话列表页
     {path: '/register', component: register, },//注册
 		{
