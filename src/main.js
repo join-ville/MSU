@@ -6,6 +6,8 @@ import './style/public.scss'
 import './config/rem'
 import FastClick from 'fastclick'
 import App from './app.vue';
+import axios from 'axios';
+import VueAxios from 'vue-axios';
 if ('addEventListener' in document) {
 	document.addEventListener('DOMContentLoaded', function() {
 		FastClick.attach(document.body);
@@ -13,7 +15,7 @@ if ('addEventListener' in document) {
 }
 
 Vue.use(VueRouter)
-
+Vue.use(VueAxios, axios)
 const router = new VueRouter({
 	routes,
 	mode: 'history', //路由模式
