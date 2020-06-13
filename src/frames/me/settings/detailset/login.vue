@@ -22,7 +22,7 @@
 			</div>
       <v-tooltip v-if="password_wrong_show" color="red lighten-2"
                  style="margin-left: 10px;color: red">
-        <span style="color:red;">{{error_img}}</span>
+        <span style="color:red;font-size:18px">{{error_img}}</span>
       </v-tooltip>
 
 			<div class="login_botton" @click="loginSuccess">
@@ -111,6 +111,8 @@
             }
             else{
               this.$router.push('/dialogue')
+              this.$store.state.username = this.inputaccounts
+              this.$store.state.logined  = true
             }
           })
 				}

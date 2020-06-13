@@ -22,7 +22,7 @@
 			</div>
 			<div class="details_li">
 				<router-link to='' class="setnote">
-					设置备注和标签
+					设置备注和标签{{username}}
 				</router-link>
 			</div>
 			<div class="details_person">
@@ -49,7 +49,7 @@
 							更多
 					</router-link>
 				</div>
-			</div> 
+			</div>
 			<div class="sendmessage"><!--  -->
 				<router-link to='/singlechat' class="send" @click.native="enterdDialogue">
 					发消息
@@ -59,7 +59,7 @@
 		<transition name="router-show">
 		    <router-view></router-view>
 		</transition>
-	</section>	 
+	</section>
 </template>
 
 <script>
@@ -68,14 +68,15 @@
 	export default{
 		data(){
 			return{
-				gallery:[]		//个人相册
+				gallery:[],		//个人相册
+        username:'11'
 			}
 		},
 		created(){
 
 		},
 		mounted(){
-			
+
 			this.gallery=this.infor.gallery;
 
 		},
@@ -86,7 +87,7 @@
 			...mapState([
 			    "infor", "contactList", "conversine"
 			]),
-			
+
 		},
 		methods:{
 			...mapMutations([
@@ -158,7 +159,7 @@
 				width:100%;
 				@include sizeColor(0.64rem,#000);
 			}
-			
+
 		}
 		.details_person{
 			padding:0.512rem 0.5973333333rem;
@@ -175,7 +176,7 @@
 					margin-left:2.432rem;
 					@include align(center);
 				}
-				
+
 			}
 			.details_person_more{
 				.clickmore{

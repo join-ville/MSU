@@ -29,10 +29,10 @@
           </svg>
         </div>
       </div>
-      <v-tooltip v-if="password_wrong_show" color="red lighten-2"
-                 style="margin-left: 10px;color: red">
-        <span style="color:red;">{{error_img}}</span>
-      </v-tooltip>
+      <section v-if="password_wrong_show" color="red lighten-2" class="remark"
+                 style="margin-left: 10px;color: red;">
+        <span style="color:red;font-size:18px">{{error_img}}</span>
+      </section>
       <div class="login_botton" @click="RegisterSuccess">
         注 册
       </div>
