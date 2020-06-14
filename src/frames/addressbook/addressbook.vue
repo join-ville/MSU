@@ -69,7 +69,7 @@
                     <li v-for="(value, key, index) in manageaddress"
                         :key="index"
                         class="addlistLi">
-                        <h1>{{key}}</h1>
+                        <h1>{{key}}</h1> <!--the first letter -->
                         <ul>
                             <router-link to="/addressbook/details"
                                          tag="li"
@@ -132,7 +132,18 @@ export default {
         }
     },
     created() {
-
+        this.$axios.post('/friend/viewMyFriends',{
+            params: {
+              username:'',
+              keyword:''
+            }
+        })
+          .then(response => {
+              if (response.code == 200)
+              this.contactList = response.data
+          })
+          .catch(error => {
+          })
     },
     beforeMount() {
 

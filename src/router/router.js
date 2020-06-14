@@ -1,7 +1,10 @@
 import App from '../app'
+import upload from "../frames/upload/upload";
+const imgupload = r => require.ensure([], () => r(require('../frames/upload/upload')), 'imgupload')
 
 const dialogue = r => require.ensure([], () => r(require('../frames/dialogue/dialogue')), 'dialogue')
 const singlechat = r => require.ensure([], () => r(require('../frames/conversation/singlechat')), 'singlechat')
+const imageupload = r => require.ensure([], () => r(require('../frames/conversation/chatmessage/imageupload')), 'imageupload')
 const groupchat = r => require.ensure([], () => r(require('../frames/conversation/groupchat')), 'groupchat')
 const chatmessage = r => require.ensure([], () => r(require('../frames/conversation/chatmessage/chatmessage')), 'chatmessage')
 const groupchatmessage = r => require.ensure([], () => r(require('../frames/conversation/chatmessage/groupchatmessage')), 'groupchatmessage')
@@ -34,6 +37,7 @@ const aboutwc = r => require.ensure([], () => r(require('../frames/me/settings/d
 const help = r => require.ensure([], () => r(require('../frames/me/settings/detailset/help')), 'help')
 const login = r => require.ensure([], () => r(require('../frames/me/settings/detailset/login')), 'login')
 const register = r => require.ensure([], () => r(require('../frames/me/settings/detailset/register')), 'register')
+const test = r => require.ensure([], () => r(require('../../src/chat')), 'test')
 export default[{
 	path:'/',
 	component:App,
@@ -48,6 +52,12 @@ export default[{
 				{
 					path: '/singlechat/chatmessage',
 					component: chatmessage,
+          children: [
+            {
+              path: '/singlechat/chatmessage/imageupload',
+              component: imageupload,
+            }
+          ]
 				}
 			]
 
@@ -62,7 +72,8 @@ export default[{
 				}
 			]
 		},			//群聊
-		{path: '/addressbook', component: addressbook, meta:{ keepAlive: true},
+		{path: '/addressbook',
+      component: addressbook, meta:{ keepAlive: true},
 			children: [
 				{
 					path: '/addressbook/details',
@@ -77,6 +88,10 @@ export default[{
 			]
 
 		},	//通讯录
+    {path: '/test',
+      component: test,
+
+    },
 		{path: '/find', component: find,
 			children:[
 				{

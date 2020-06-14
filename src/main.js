@@ -2,10 +2,14 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import routes from './router/router'
 import store from './vuex/'
+import axios from 'axios'
 import './style/public.scss'
 import './config/rem'
 import FastClick from 'fastclick'
 import App from './app.vue';
+
+axios.defaults.baseURL = 'http://106.53.58.194:8088/'
+
 if ('addEventListener' in document) {
 	document.addEventListener('DOMContentLoaded', function() {
 		FastClick.attach(document.body);
