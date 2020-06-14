@@ -55,6 +55,13 @@
 					发消息
 				</router-link>
 			</div>
+      <span style="cursor:pointer">
+        <div class="deletefriend"><!--  -->
+        <div class="send" v-on:click="deleteFriend">
+          删除好友
+        </div>
+      </div>
+      </span>
 		</div>
 		<transition name="router-show">
 		    <router-view></router-view>
@@ -95,7 +102,33 @@
 			]),
 			enterdDialogue(){
 				this.SAVE_DIALOGUE(this.infor);
-			}
+			},
+      deleteFriend(){
+        this.axios({
+          method: 'post',
+          url: this.$store.state.baseurl+'/friend/deleteMyFriends',
+          data: {
+            sendName:this.$store.state.username,
+            acceptName: this.username,
+            Token:this.$store.state.token
+          },
+          crossDomain: true
+        })
+          .then(response => {
+            if (response.data.code == 200)
+              this.$alert('','删除成功', {
+                confirmButtonText: '确定',
+                callback: action => {
+                  this.$message ({
+                    type:'info',
+                    message: successResponse.data.message
+                  })
+                }
+              })
+          })
+          .catch(error => {
+          })
+      }
 		}
 	}
 </script>
@@ -223,5 +256,21 @@
 				line-height:2.0053333333rem;
 			}
 		}
+    .deletefriend{
+      width:14.1653333333rem;
+      margin:0 auto;
+      margin-top:0.8533333333rem;
+      .send{
+        display:block;
+        border-radius:5px;
+        text-align:center;
+        width:14.1226666667rem;
+        border:1px solid #FF0000	;
+        background:	#DC143C;
+        @include sizeColor(0.7253333333rem,#fff);
+        letter-spacing:4px;
+        line-height:2.0053333333rem;
+      }
+    }
 	}
 </style>

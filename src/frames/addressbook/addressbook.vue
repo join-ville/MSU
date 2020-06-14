@@ -153,8 +153,10 @@ export default {
           method: 'post',
           url: this.$store.state.baseurl+'/friend/viewMyFriends',
           data: {
-              username:'ruwo',
-              Token:'123456'
+              // username:'ruwo',
+              // Token:'123456'
+              username: this.$store.state.username,
+              token: this.$store.state.token
           },
           crossDomain: true
         })
