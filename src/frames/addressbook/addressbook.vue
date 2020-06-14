@@ -235,6 +235,7 @@ export default {
           }
           else{
             this.newRequest = true
+            this.RequestName = this.info.data.data[0].sendUserId
           }
         })
       },
