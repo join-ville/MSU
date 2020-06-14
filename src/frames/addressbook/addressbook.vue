@@ -226,8 +226,9 @@ export default {
           console.log(body.data)
           this.info = body
           // 错误信息
-          if (this.info.data.code !== 200) {
-            console.log(this.info)
+          if (this.info.data.code === 200) {
+            this.newRequest = true
+            this.RequestName = this.info.data.data[0].sendUserName
             /*var that = this
             this.password_wrong_show = true
             this.error_img = 'request fail!'
@@ -235,10 +236,7 @@ export default {
               that.password_wrong_show = false
             }, 2000)*/
           }
-          else{
-            this.newRequest = true
-            this.RequestName = this.info.data.data[0].sendUserId
-          }
+
         })
       },
       acceptRequest(){

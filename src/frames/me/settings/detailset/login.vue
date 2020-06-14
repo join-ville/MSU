@@ -110,9 +110,11 @@
               }, 2000)
             }
             else{
-              this.$router.push('/dialogue')
               this.$store.state.username = this.inputaccounts
+              this.$store.state.token = this.info.data.token
               this.$store.state.logined  = true
+              this.$router.push('/dialogue')
+
             }
           })
 				}
