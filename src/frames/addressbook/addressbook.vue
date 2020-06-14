@@ -96,7 +96,7 @@
                                          alt="">
                                 </div>
                                 <div class="personlist_name ellipsis">
-                                    {{item.remarks ? item.remarks : item.petname}}
+                                    {{item.username}}
                                 </div>
                             </router-link>
                         </ul>
@@ -135,7 +135,7 @@
 <script>
 import headTop from 'src/components/header/head'
 import footGuide from 'src/components/footer/foot'
-import { contactList } from 'src/service/getData'
+// import { contactList } from 'src/service/getData'
 import { animate } from 'src/config/mUtils.js'
 import { mapMutations } from 'vuex'
 export default {
@@ -149,15 +149,18 @@ export default {
         }
     },
     created() {
-        this.$axios.post('/friend/viewMyFriends',{
-            params: {
-              username:'',
-              keyword:''
-            }
+        this.axios({
+          method: 'post',
+          url: this.$store.state.baseurl+'/friend/viewMyFriends',
+          data: {
+              username:'ruwo',
+              Token:'123456'
+          },
+          crossDomain: true
         })
           .then(response => {
-              if (response.code == 200)
-              this.contactList = response.data
+              if (response.data.code == 200)
+                this.contactList = response.data.data
           })
           .catch(error => {
           })
@@ -182,6 +185,7 @@ export default {
     computed: {
 
         manageaddress() {
+
             let addresslist = {};
             for (let i = 65; i <= 90; i++) {
                 if (this.contactList[String.fromCharCode(i)]) {
