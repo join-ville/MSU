@@ -103,7 +103,7 @@
       sendRequest(){
         this.axios({
           method: 'post',
-          url: this.$store.state.baseurl+'/friend/sendRequest',
+          url: this.$store.state.baseurl+'friend/sendRequest',
           data: {
             sendName: this.$store.state.username,
             acceptName: this.$route.params.username,

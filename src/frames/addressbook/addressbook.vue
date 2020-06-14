@@ -21,6 +21,21 @@
                             新的朋友
                         </div>
                     </router-link>
+                  <router-link v-if="newRequest"
+                                to=""
+                               tag="li"
+                               class="contacts_li">
+
+                    <div class="contacts_text">
+                      新的朋友:{{this.RequestName}}
+                    </div>
+                    <div class="acc_botton" @click="acceptRequest">
+                    接受
+                    </div>
+                    <div class="refuse_botton" @click="refuseRequest">
+                      拒绝
+                    </div>
+                  </router-link>
                     <router-link to=""
                                  tag="li"
                                  class="contacts_li">
@@ -129,6 +144,8 @@ export default {
             contactList: {},		//所有通讯录列表
             peoplenum: null,		//通讯录人数
             letter: false,		//字母放大
+            newRequest:false,
+            RequestName:'join11',
         }
     },
     created() {
@@ -139,6 +156,7 @@ export default {
 
     },
     mounted() {
+      this.viewRequest()
         contactList().then((res) => {
             this.contactList = res;
 
@@ -178,6 +196,90 @@ export default {
         ...mapMutations([
             'SAVE_MESSAGE'
         ]),
+      viewRequest(){
+        this.axios({
+          method: 'post',
+          url: this.$store.state.baseurl+'friend/viewRequest',
+          data: {
+            username: this.$store.state.username,
+            Token:this.$store.state.token,
+          },
+          crossDomain: true
+        }).then(body => {
+          console.log(body.data)
+          this.info = body
+          // 错误信息
+          if (this.info.data.code !== 200) {
+            console.log(this.info)
+            /*var that = this
+            this.password_wrong_show = true
+            this.error_img = 'request fail!'
+            setTimeout(function () {
+              that.password_wrong_show = false
+            }, 2000)*/
+          }
+          else{
+            this.newRequest = true
+          }
+        })
+      },
+      acceptRequest(){
+        this.axios({
+          method: 'post',
+          url: this.$store.state.baseurl+'friend/acceptRequest',
+          data: {
+            sendName: this.$store.state.username,
+            acceptName: this.RequestName,
+            Token:this.$store.state.token,
+          },
+          crossDomain: true
+        }).then(body => {
+          console.log(body.data)
+          this.info = body
+          // 错误信息
+          if (this.info.data.code !== 200) {
+            console.log(this.info)
+            /*var that = this
+            this.password_wrong_show = true
+            this.error_img = 'request fail!'
+            setTimeout(function () {
+              that.password_wrong_show = false
+            }, 2000)*/
+          }
+          else{
+            this.newRequest = false
+          }
+        })
+      },
+      refuseRequest(){
+        this.axios({
+          method: 'post',
+          url: this.$store.state.baseurl+'friend/refuseRequest',
+          data: {
+            sendName: this.$store.state.username,
+            acceptName: this.RequestName,
+            Token:this.$store.state.token,
+          },
+          crossDomain: true
+        }).then(body => {
+          console.log(body.data)
+          this.info = body
+          // 错误信息
+          if (this.info.data.code !== 200) {
+            console.log(this.info)
+            /*var that = this
+            this.password_wrong_show = true
+            this.error_img = 'request fail!'
+            setTimeout(function () {
+              that.password_wrong_show = false
+            }, 2000)*/
+          }
+          else{
+            this.newRequest = false
+          }
+        })
+      },
+
         detailMessage(item) {
             this.SAVE_MESSAGE(item);
         },
@@ -224,7 +326,24 @@ export default {
 .router-show-leave {
     transform: translateX(100%);
 }
-
+.acc_botton{
+  width: 50px;
+  margin-left: 0px;
+  text-align:center;
+  background:#1aad19;
+  border-radius:5px;
+  line-height:1.6rem;
+  @include sizeColor(.7rem,#fff);
+}
+.refuse_botton{
+  width: 50px;
+  margin-left: 10px;
+  text-align:center;
+  background: orangered;
+  border-radius:5px;
+  line-height:1.6rem;
+  @include sizeColor(.7rem,#fff);
+}
 .contacts {
     width: 100%;
     background: #fff;
@@ -249,6 +368,7 @@ export default {
                 .contacts_text {
                     @include sizeColor(0.64rem, #2a2a2a);
                     margin-left: 0.5333333333rem;
+                    margin-right: 100px;
                 }
             }
             .contacts_li:last-child {
