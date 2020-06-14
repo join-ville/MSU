@@ -27,6 +27,8 @@ const computer = r => require.ensure([], () => r(require('../frames/computer/com
 const transfer = r => require.ensure([], () => r(require('../frames/transfer/transfer')), 'transfer')
 const settings = r => require.ensure([], () => r(require('../frames/me/settings/settings')), 'settings')
 const search = r => require.ensure([], () => r(require('../frames/search/search')), 'search')
+const addFriend = r => require.ensure([], () => r(require('../frames/search/addFriend')), 'addFriend')
+const searchResult= r => require.ensure([], () => r(require('../frames/search/details')), 'searchResult')
 
 const newmessage = r => require.ensure([], () => r(require('../frames/me/settings/detailset/newmessage')), 'newmessage')
 const disturbance = r => require.ensure([], () => r(require('../frames/me/settings/detailset/disturbance')), 'disturbance')
@@ -42,7 +44,8 @@ export default[{
 	path:'/',
 	component:App,
 	children: [
-		{path: '', redirect: '/me/settings/login'},   //地址为空时跳转登录页面
+    {path: '', redirect: '/dialogue'},   //地址为空时跳转登录页面
+		//{path: '', redirect: '/me/settings/login'},   //地址为空时跳转登录页面
 		{path: '/dialogue', component: dialogue, },//对话列表页
     {path: '/register', component: register, },//注册
 		{
@@ -105,6 +108,8 @@ export default[{
 			]
 		},	//发现
 		{path: '/search', component: search},	//发现
+    {path: '/searchResult', name:'searchResult',component: searchResult},
+    {path: '/addFriend', component: addFriend},	//添加好友
 		{path: '/me', component: me,
 			children: [
 				{path:'/me/settings',component: settings,//设置

@@ -1,10 +1,10 @@
-<template>
+<template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
 	<section class="child_page">
 		<head-top logoPart="login"></head-top>
 		<section class="login">
 			<div class="useid" :class="{'useid_border' : borderColor}">
 				<div class="mark">帐号</div>
-				<div class="input_mark"><input type="text" placeholder="账户名" v-model="inputaccounts" @input="inpuMark" @click="accountsMark" /></div>
+				<div class="input_mark"><input type="text" placeholder="账号名" v-model="inputaccounts" @input="inpuMark" @click="accountsMark" /></div>
 				<div class="svg_close" v-if="accounts" @click="clearMark">
 					<svg fill="#c3c3c3">
 						<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#close"></use>
@@ -20,6 +20,11 @@
 					</svg>
 				</div>
 			</div>
+      <v-tooltip v-if="password_wrong_show" color="red lighten-2"
+                 style="margin-left: 10px;color: red">
+        <span style="color:red;font-size:18px">{{error_img}}</span>
+      </v-tooltip>
+
 			<div class="login_botton" @click="loginSuccess">
 				登 录
 			</div>
@@ -32,6 +37,7 @@
 
 <script>
 	import headTop from 'src/components/header/head'
+
 	export default{
 		data(){
 			return{
@@ -40,7 +46,9 @@
 				accounts: false,		//清除帐号
 				code: false,			//清除密码
 				borderColor:true,		//下边框颜色
-				borderColortwo: false
+				borderColortwo: false,
+        password_wrong_show: false,
+        error_img: '',
 			}
 		},
 		created(){
@@ -79,16 +87,50 @@
 				this.code=false;
 			},
 			loginSuccess(){
-				if(this.inputaccounts){
-					this.$router.push('/dialogue')
+        if(this.inputaccounts && this.inputcode){
+          this.axios({
+            method: 'post',
+            url: 'http://106.53.58.194:8088/msu_im/user/login',
+            data: {
+              username: this.inputaccounts,
+              password: this.inputcode,
+            },
+            crossDomain: true
+          }).then(body => {
+            console.log(body.data)
+            this.info = body
+            // 错误信息
+            if (this.info.data.code !== 200) {
+              console.log(this.info)
+              var that = this
+              this.password_wrong_show = true
+              this.error_img = 'request fail!'
+              setTimeout(function () {
+                that.password_wrong_show = false
+              }, 2000)
+            }
+            else{
+              this.$router.push('/dialogue')
+              this.$store.state.username = this.inputaccounts
+              this.$store.state.logined  = true
+            }
+          })
 				}
+          else {
+          var that = this
+          this.password_wrong_show = true
+          this.error_img = '请填写账户名及密码'
+          setTimeout(function () {
+            that.password_wrong_show = false
+          }, 2000)
+        }
 
 			},
       RegisterSuccess(){
           this.$router.push('/register')
 
       }
-		}
+    }
 	}
 </script>
 <style lang="scss" scoped>

@@ -2,13 +2,13 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import routes from './router/router'
 import store from './vuex/'
-import axios from 'axios'
 import './style/public.scss'
 import './config/rem'
 import FastClick from 'fastclick'
 import App from './app.vue';
 
-axios.defaults.baseURL = 'http://106.53.58.194:8088/'
+import axios from 'axios';
+import VueAxios from 'vue-axios';
 
 if ('addEventListener' in document) {
 	document.addEventListener('DOMContentLoaded', function() {
@@ -17,7 +17,7 @@ if ('addEventListener' in document) {
 }
 
 Vue.use(VueRouter)
-
+Vue.use(VueAxios, axios)
 const router = new VueRouter({
 	routes,
 	mode: 'history', //路由模式
