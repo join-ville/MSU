@@ -38,7 +38,7 @@
 				</section>
 				<section class="li_text" :class="$route.path.indexOf('dialogue') !== -1 ? 'colortext' : 'color' " >微信</section>
 			</router-link>
-			<router-link :to="{path: '/addressbook', query: {username: this.$store.state.username}}" tag="li" class="footer_li">
+			<router-link to="/addressbook" tag="li" class="footer_li">
 				<section class="li_svg">
 					<svg>
 			    		<use xmlns:xlink="http://www.w3.org/1999/xlink" :xlink:href="$route.path.indexOf('addressbook') !== -1 ? '#addresslight' : '#address'"></use>
