@@ -86,27 +86,33 @@
                         class="addlistLi">
                         <h1>{{key}}</h1> <!--the first letter -->
                         <ul>
-<!--                            <router-link to="/addressbook/details/"-->
-<!--                                         tag="li"-->
-<!--                                         v-for="(item, indexLink) in value"-->
-<!--                                         :key="indexLink"-->
-<!--                                         @click.native='detailMessage(item)'>-->
+                            <router-link :to="{path: '/addressbook/details', query: {username: item.username}}"
+                                         style="cursor: pointer"
+                                         tag="li"
+                                         v-for="(item, indexLink) in value"
+                                         :key="indexLink"
+                                         @click.native='detailMessage(item)'>
+                                <div class="personlist_img">
+                                    <img :src="item.headurl"
+                                         alt="">
+                                </div>
+                                <div class="personlist_name ellipsis">
+                                    {{item.username}}
+                                </div>
+                            </router-link>
+<!--                            <table>-->
+<!--                              <tr v-for="(item, indexLink) in value"-->
+<!--                                  :key="indexLink">-->
 <!--                                <div class="personlist_img">-->
-<!--                                    <img :src="item.headurl"-->
-<!--                                         alt="">-->
+<!--                                  <img :src="item.newImg">-->
 <!--                                </div>-->
 <!--                                <div class="personlist_name ellipsis">-->
+<!--                                  <router-link :to="{path: '/addressbook/details', query: {username: item.username}}">-->
 <!--                                    {{item.username}}-->
+<!--                                  </router-link>-->
 <!--                                </div>-->
-<!--                            </router-link>-->
-                            <table>
-                              <tr v-for="(item, indexLink) in value"
-                                  :key="indexLink">
-                                <router-link :to="{path: '/addressbook/details', query: {username: item.username}}">
-                                  {{item.username}}
-                                </router-link>
-                              </tr>
-                            </table>
+<!--                              </tr>-->
+<!--                            </table>-->
                         </ul>
                     </li>
                 </ul>
