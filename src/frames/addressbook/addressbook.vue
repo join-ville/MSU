@@ -27,7 +27,7 @@
                                class="contacts_li">
 
                     <div class="contacts_text">
-                      新的朋友:{{this.RequestName}}
+                      新的朋友:<br>{{this.RequestName}}
                     </div>
                     <div class="acc_botton" @click="acceptRequest">
                     接受
@@ -170,7 +170,7 @@ export default {
           data: {
               // username:'ruwo',
               // Token:'123456'
-              username: this.$store.state.username,
+              username: localStorage.getItem('username'),
               token: this.$store.state.token
           },
           crossDomain: true
@@ -263,8 +263,8 @@ export default {
           method: 'post',
           url: this.$store.state.baseurl+'friend/acceptRequest',
           data: {
-            sendName: this.$store.state.username,
-            acceptName: this.RequestName,
+            sendName:this.RequestName ,
+            acceptName: this.$store.state.username,
             Token:this.$store.state.token,
           },
           crossDomain: true
@@ -291,8 +291,8 @@ export default {
           method: 'post',
           url: this.$store.state.baseurl+'friend/refuseRequest',
           data: {
-            sendName: this.$store.state.username,
-            acceptName: this.RequestName,
+            sendName: this.RequestName,
+            acceptName: this.$store.state.username,
             Token:this.$store.state.token,
           },
           crossDomain: true

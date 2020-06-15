@@ -90,7 +90,7 @@
         if(this.inputaccounts && this.inputcode){
           this.axios({
             method: 'post',
-            url: 'http://106.53.58.194:8088/msu_im/user/login',
+            url: 'http://106.53.58.194:8888/msu_im/user/login',
             data: {
               username: this.inputaccounts,
               password: this.inputcode,
@@ -113,6 +113,7 @@
               this.$store.state.username = this.inputaccounts
               this.$store.state.token = this.info.data.token
               this.$store.state.logined  = true
+              localStorage.setItem('username',this.inputaccounts)
               this.$router.push('/dialogue')
 
             }
