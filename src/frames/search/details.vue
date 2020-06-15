@@ -79,19 +79,13 @@
       }
     },
     created(){
-
     },
     mounted(){
-
-
-
     },
     components:{
       headTop,
     },
     computed:{
-
-
     },
     methods:{
       ...mapMutations([
@@ -191,7 +185,6 @@
         width:100%;
         @include sizeColor(0.64rem,#000);
       }
-
     }
     .details_person{
       padding:0.512rem 0.5973333333rem;
@@ -208,7 +201,6 @@
           margin-left:2.432rem;
           @include align(center);
         }
-
       }
       .details_person_more{
         .clickmore{

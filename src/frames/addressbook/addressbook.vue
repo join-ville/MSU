@@ -86,19 +86,27 @@
                         class="addlistLi">
                         <h1>{{key}}</h1> <!--the first letter -->
                         <ul>
-                            <router-link to="/addressbook/details"
-                                         tag="li"
-                                         v-for="(item, indexLink) in value"
-                                         :key="indexLink"
-                                         @click.native='detailMessage(item)'>
-                                <div class="personlist_img">
-                                    <img :src="item.headurl"
-                                         alt="">
-                                </div>
-                                <div class="personlist_name ellipsis">
-                                    {{item.username}}
-                                </div>
-                            </router-link>
+<!--                            <router-link to="/addressbook/details/"-->
+<!--                                         tag="li"-->
+<!--                                         v-for="(item, indexLink) in value"-->
+<!--                                         :key="indexLink"-->
+<!--                                         @click.native='detailMessage(item)'>-->
+<!--                                <div class="personlist_img">-->
+<!--                                    <img :src="item.headurl"-->
+<!--                                         alt="">-->
+<!--                                </div>-->
+<!--                                <div class="personlist_name ellipsis">-->
+<!--                                    {{item.username}}-->
+<!--                                </div>-->
+<!--                            </router-link>-->
+                            <table>
+                              <tr v-for="(item, indexLink) in value"
+                                  :key="indexLink">
+                                <router-link :to="{path: '/addressbook/details', query: {username: item.username}}">
+                                  {{item.username}}
+                                </router-link>
+                              </tr>
+                            </table>
                         </ul>
                     </li>
                 </ul>
@@ -135,7 +143,7 @@
 <script>
 import headTop from 'src/components/header/head'
 import footGuide from 'src/components/footer/foot'
-// import { contactList } from 'src/service/getData'
+//import { contactList } from 'src/service/getData'
 import { animate } from 'src/config/mUtils.js'
 import { mapMutations } from 'vuex'
 export default {
@@ -149,6 +157,7 @@ export default {
         }
     },
     created() {
+
         this.axios({
           method: 'post',
           url: this.$store.state.baseurl+'/friend/viewMyFriends',
@@ -173,12 +182,12 @@ export default {
     },
     mounted() {
       this.viewRequest()
-        contactList().then((res) => {
-            this.contactList = res;
+        // contactList().then((res) => {
+        //     this.contactList = res;
 
 
 
-        })
+        // })
     },
     components: {
         headTop,
@@ -213,6 +222,10 @@ export default {
         ...mapMutations([
             'SAVE_MESSAGE'
         ]),
+      GoToDetail : function(item){
+          const that=this
+        that.$router.push({ path: '/addressbook/details', params: { username:  item.username}})
+      },
       viewRequest(){
         this.axios({
           method: 'post',
@@ -300,6 +313,8 @@ export default {
 
         detailMessage(item) {
             this.SAVE_MESSAGE(item);
+            this.$store.state.gotoDetail=item.username
+            //this.$router.push({ name: 'addressbook/details', params: { username: item.username}});
         },
         startThing(value) {
             this.letter = true;

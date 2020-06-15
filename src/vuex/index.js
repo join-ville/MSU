@@ -4,6 +4,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import mutations from './mutation'
 import actions from './action'
+import {imgurl} from "../config/env";
 
 Vue.use(Vuex)
 
@@ -20,8 +21,9 @@ const state = {
 	allgroup:[],			//所有群聊的人
   logined:false,
   username:'join',
-  baseurl:'http://106.53.58.194:8088/msu_im/',
+  baseurl:'http://106.53.58.194:8888/msu_im/',
   token:'02e33ef2-9339-48dc-a190-98e0e0faf36f',
+	gotoDetail: ''
 }
 
 export default new Vuex.Store({

@@ -40,6 +40,7 @@ const help = r => require.ensure([], () => r(require('../frames/me/settings/deta
 const login = r => require.ensure([], () => r(require('../frames/me/settings/detailset/login')), 'login')
 const register = r => require.ensure([], () => r(require('../frames/me/settings/detailset/register')), 'register')
 const test = r => require.ensure([], () => r(require('../../src/chat')), 'test')
+
 export default[{
 	path:'/',
 	component:App,
@@ -80,6 +81,7 @@ export default[{
 			children: [
 				{
 					path: '/addressbook/details',
+          name: 'frienddetails',
 					component: details,		//详细资料
 					children: [
 						{

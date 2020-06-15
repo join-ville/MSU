@@ -16,13 +16,13 @@
 						</div>
 					</div>
 					<div class="details_right_obt">
-						微信号：{{infor.wxid}}
+						微信号：{{this.username}}
 					</div>
 				</div>
 			</div>
 			<div class="details_li">
 				<router-link to='' class="setnote">
-					设置备注和标签{{username}}
+					设置备注和标签{{this.username}}
 				</router-link>
 			</div>
 			<div class="details_person">
@@ -76,11 +76,12 @@
 		data(){
 			return{
 				gallery:[],		//个人相册
-        username:'11'
+        username
 			}
 		},
 		created(){
 
+      this.username=this.$route.query.username
 		},
 		mounted(){
 
