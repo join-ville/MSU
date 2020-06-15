@@ -170,7 +170,8 @@ export default {
           data: {
               // username:'ruwo',
               // Token:'123456'
-              username: localStorage.getItem('username'),
+              //username: localStorage.getItem('username'),
+              username: this.$route.query.username,
               token: this.$store.state.token
           },
           crossDomain: true

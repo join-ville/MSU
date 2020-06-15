@@ -38,7 +38,7 @@
 				</section>
 				<section class="li_text" :class="$route.path.indexOf('dialogue') !== -1 ? 'colortext' : 'color' " >微信</section>
 			</router-link>
-			<router-link to="/addressbook" tag="li" class="footer_li">
+			<router-link :to="{path: '/addressbook', query: {username: this.$store.state.username}}" tag="li" class="footer_li">
 				<section class="li_svg">
 					<svg>
 			    		<use xmlns:xlink="http://www.w3.org/1999/xlink" :xlink:href="$route.path.indexOf('addressbook') !== -1 ? '#addresslight' : '#address'"></use>
@@ -63,7 +63,7 @@
 				</section>
 				<section class="li_text" :class="$route.path.indexOf('me') !== -1 ? 'colortext' : 'color' " >我</section>
 			</router-link>
-		</ul>	
+		</ul>
 	</div>
 </template>
 
@@ -72,21 +72,21 @@
 	export default{
 		data(){
 			return{
-				
+
 			}
 		},
 		created(){
-			
+
 		},
 		mounted(){
-			
+
 		},
 		components:{
 
 		},
 		computed:{
 			...mapState([
-				'firendwarn', 
+				'firendwarn',
 			]),
 		},
 		methods:{
@@ -145,23 +145,23 @@
 					top:0.2413333333rem;
 					@include widthHeight(1.324rem,1.324rem);
 				}
-				
+
 			}
 			.footer_li:nth-of-type(3){
 				.li_svg{
 					top:0.3813333333rem;
 					@include widthHeight(.89rem,.89rem);
 				}
-				
+
 			}
 			.footer_li:nth-of-type(4){
 				.li_svg{
 					top:0.2813333333rem;
 					@include widthHeight(1.08rem,1.08rem);
 				}
-				
+
 			}
-			
+
 		}
 	}
 </style>
