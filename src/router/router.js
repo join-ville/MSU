@@ -77,7 +77,7 @@ export default[{
 			]
 		},			//群聊
 		{path: '/addressbook',
-      component: addressbook, meta:{ keepAlive: true},
+      component: addressbook, meta:{ keepAlive: false},
 			children: [
 				{
 					path: '/addressbook/details',

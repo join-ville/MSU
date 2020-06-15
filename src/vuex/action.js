@@ -20,5 +20,8 @@ export default {
 	 	if(state.contactList.length > 0) return;
 	 	let res=await dialog();
 	 	commit(SAVE_BEGINDIALOGUE,res)
-	 }
+	 },
+  changeUsername (context, token) {
+    context.commit('handleUsername', token)
+  },
 }

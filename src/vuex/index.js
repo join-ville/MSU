@@ -26,6 +26,7 @@ const state = {
 	gotoDetail: ''
 }
 
+
 export default new Vuex.Store({
 	state,
 	actions,
