@@ -149,7 +149,35 @@
                   }, 2000)
                 }
                 else{
-                  this.$router.push('/dialogue')
+                  this.axios({
+                    method: 'post',
+                    url: 'http://106.53.58.194:8088/msu_im/user/login',
+                    data: {
+                      username: this.inputaccounts,
+                      password: this.inputcode,
+                    },
+                    crossDomain: true
+                  }).then(body => {
+                    console.log(body.data)
+                    this.info = body
+                    // 错误信息
+                    if (this.info.data.code !== 200) {
+                      console.log(this.info)
+                      var that = this
+                      this.password_wrong_show = true
+                      this.error_img = 'request fail!'
+                      setTimeout(function () {
+                        that.password_wrong_show = false
+                      }, 2000)
+                    }
+                    else{
+                      this.$store.state.username = this.inputaccounts
+                      this.$store.state.token = this.info.data.token
+                      this.$store.state.logined  = true
+                      this.$router.push('/dialogue')
+
+                    }
+                  })
                 }
               })
             }
