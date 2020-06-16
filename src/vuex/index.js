@@ -20,7 +20,7 @@ const state = {
 	consumerthing: false,	//登录弹窗显隐
 	allgroup:[],			//所有群聊的人
   logined:false,
-  username:'join',
+  username:'',
   baseurl:'http://106.53.58.194:8888/msu_im/',
   token:'02e33ef2-9339-48dc-a190-98e0e0faf36f',
 	gotoDetail: ''
