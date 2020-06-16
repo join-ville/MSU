@@ -15,6 +15,9 @@ import {
 } from './mutation-types.js'
 
 export default {
+  handleUsername (state, newVal) {
+    state.username = newVal
+  },
 	//记录是否电脑静音
 	[RECORD_MUTE](state,mutestatus){
 		state.mute=mutestatus;
@@ -35,10 +38,10 @@ export default {
 	//增加对话人列表
 	[SAVE_DIALOGUE](state, obj){
 		state.contactList=[obj, ...state.contactList];
-		
+
 		//数组去重
 		const newArr = new Set(state.contactList);
-		state.contactList = [...newArr];	
+		state.contactList = [...newArr];
 	},
 	//获取用户信息
 	[GET_USERINFO](state,userInfo){

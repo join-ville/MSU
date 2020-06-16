@@ -163,7 +163,9 @@ export default {
         }
     },
     created() {
-
+      //console.log('created'+this.$store.state.username)
+      //this.$store.dispatch('changeUsername',localStorage.getItem('username'))
+      //console.log('created'+this.$store.state.username)
         this.axios({
           method: 'post',
           url: this.$store.state.baseurl+'/friend/viewMyFriends',
@@ -187,6 +189,9 @@ export default {
 
     },
     mounted() {
+      //console.log('1111'+this.$store.state.username)
+      //this.$store.dispatch('changeUsername',localStorage.getItem('username'))
+      //console.log('1111'+this.$store.state.username)
       this.viewRequest()
         // contactList().then((res) => {
         //     this.contactList = res;
