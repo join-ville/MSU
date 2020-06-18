@@ -60,6 +60,7 @@
 		methods:{
     logout(){
       localStorage.removeItem("username")
+      localStorage.removeItem("token")
     }
 		}
 	}

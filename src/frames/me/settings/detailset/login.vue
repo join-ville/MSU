@@ -115,6 +115,7 @@
               this.$store.state.token = this.info.data.data.token
               this.$store.state.logined  = true
               localStorage.setItem('username',this.inputaccounts)
+              localStorage.setItem('token',this.info.data.data.token)
               this.$router.push('/dialogue')
 
             }
