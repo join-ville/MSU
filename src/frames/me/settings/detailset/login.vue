@@ -110,8 +110,9 @@
               }, 2000)
             }
             else{
+              console.log(this.info.data.data.token)
               this.$store.state.username = this.inputaccounts
-              this.$store.state.token = this.info.data.token
+              this.$store.state.token = this.info.data.data.token
               this.$store.state.logined  = true
               localStorage.setItem('username',this.inputaccounts)
               this.$router.push('/dialogue')
