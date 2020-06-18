@@ -22,7 +22,7 @@ const state = {
   logined:false,
   username:'',
   baseurl:'http://106.53.58.194:8888/msu_im/',
-  token:'02e33ef2-9339-48dc-a190-98e0e0faf36f',
+  token:'',
 	gotoDetail: ''
 }
 
