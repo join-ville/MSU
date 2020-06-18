@@ -1,4 +1,4 @@
-import App from '../app'
+import App from '../App'
 import upload from "../frames/upload/upload";
 const imgupload = r => require.ensure([], () => r(require('../frames/upload/upload')), 'imgupload')
 
