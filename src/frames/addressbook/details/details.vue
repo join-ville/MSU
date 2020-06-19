@@ -103,35 +103,9 @@
 				"SAVE_DIALOGUE",
 			]),
 			enterdDialogue(){
-			    alert(this.$store.state.username);
 				this.SAVE_DIALOGUE(this.infor);
-          this.$router.push({ path: '/singlechat', query: { userId:this.$store.state.username,receiverId:this.username}});
-          /*this.axios({
-              method: 'post',
-              url: this.$store.state.baseurl+'/friend/deleteMyFriends',
-              data: {
-                  sendName:this.$store.state.username,
-                  acceptName: this.username,
-                  Token:this.$store.state.token
-              },
-              crossDomain: true
-          })
-              .then(response => {
-                  if (response.data.code == 200) {
-                      this.$router.push('/address')
-                      this.$alert('', '删除成功', {
-                          confirmButtonText: '确定',
-                          callback: action => {
-                              this.$message({
-                                  type: 'info',
-                                  message: successResponse.data.message
-                              })
-                          }
-                      })
-                  }
-              })
-              .catch(error => {
-              })*/
+				this.$router.push({ path: '/singlechat', query: { userId:this.$store.state.username,receiverId:this.username}});
+
 			},
       deleteFriend(){
         this.axios({

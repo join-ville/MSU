@@ -13,6 +13,7 @@ const singlechat = r => require.ensure([], () => r(require('../frames/conversati
 const imageupload = r => require.ensure([], () => r(require('../frames/conversation/chatmessage/imageupload')), 'imageupload')
 const groupchat = r => require.ensure([], () => r(require('../frames/conversation/groupchat')), 'groupchat')
 const chatmessage = r => require.ensure([], () => r(require('../frames/conversation/chatmessage/chatmessage')), 'chatmessage')
+const chatRecord = r => require.ensure([], () => r(require('../frames/conversation/chatRecord')), 'chatRecord')
 const groupchatmessage = r => require.ensure([], () => r(require('../frames/conversation/chatmessage/groupchatmessage')), 'groupchatmessage')
 const createGroupChat = r => require.ensure([], () => r(require('../frames/conversation/createGroupChat')), 'createGroupChat')
 
@@ -68,7 +69,12 @@ export default[{
 			]
 
 		},		//单人对话详情页
-		{
+    {
+      name: 'chatRecord',
+      path: '/chatRecord',
+      component: chatRecord,
+    },
+    {
 			path: '/groupchat',
 			component: groupchat,
 			children: [
