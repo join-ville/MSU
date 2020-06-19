@@ -5,7 +5,7 @@ import store from './vuex/'
 import './style/public.scss'
 import './config/rem'
 import FastClick from 'fastclick'
-import App from './app.vue';
+import App from './App.vue';
 
 import axios from 'axios';
 import VueAxios from 'vue-axios';
