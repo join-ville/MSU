@@ -1,5 +1,5 @@
 import App from '../App'
-import upload from "../frames/upload/upload";
+
 const imgupload = r => require.ensure([], () => r(require('../frames/upload/upload')), 'imgupload')
 
 const dialogue = r => require.ensure([], () => r(require('../frames/dialogue/dialogue')), 'dialogue')
@@ -58,12 +58,6 @@ export default[{
 				{
 					path: '/singlechat/chatmessage',
 					component: chatmessage,
-          children: [
-            {
-              path: '/singlechat/chatmessage/imageupload',
-              component: imageupload,
-            }
-          ]
 				}
 			]
 
@@ -171,6 +165,7 @@ export default[{
 		},	//我
 		{path: '/computer', component: computer},	//电脑登录
 		{path: '/transfer', component: transfer},	//文件传送助手
-    {path: '/createGroupChat', component: createGroupChat} //创建群聊
+    {path: '/createGroupChat', component: createGroupChat}, //创建群聊
+    {path: '/imageupload', component: imageupload,}
 	]
 }]

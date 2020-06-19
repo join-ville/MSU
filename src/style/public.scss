@@ -20,7 +20,7 @@ input[type="button"], input[type="submit"], input[type="search"], input[type="re
     -webkit-appearance: none;
 }
 
-textarea { -webkit-appearance: none;}   
+textarea { -webkit-appearance: none;}
 
 html,body{
     height: 100%;
@@ -70,7 +70,7 @@ html,body{
     white-space: nowrap;
 }
 .scroll{
-  overflow-y:auto; 
+  overflow-y:auto;
   -webkit-overflow-scrolling:touch;
 }
 
@@ -85,7 +85,7 @@ $bgcolor:#ebebeb;
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);    
+    transform: translate(-50%, -50%);
 }
 //上下居中
 @mixin topcenter{
@@ -179,7 +179,7 @@ $bgcolor:#ebebeb;
   padding: 2px;
   -webkit-transition: all .4s ease;
   transition: all .4s ease;
-  
+
 }
 .tgl-light + .tgl-btn:after {
   border-radius: 50%;
