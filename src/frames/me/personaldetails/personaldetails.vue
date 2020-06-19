@@ -9,11 +9,11 @@
 				</div>
 				<div class="privacy_child" @click="gotoMenu('changename')">
 					<span>昵称</span>
-					<span>{{userInfo.name}}</span>
+					<span>{{nickName}}</span>
 				</div>
 				<div class="privacy_child">
 					<span>微信号</span>
-					<span>{{userInfo.name}}</span>
+					<span>{{userName}}</span>
 				</div>
 				<div class="privacy_child">
 					<span>二维码名片</span>
@@ -21,23 +21,23 @@
 						<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#QRcode"></use>
 					</svg>
 				</div>
-				<div class="privacy_child">
-					<span>我的地址</span>
-					<span>{{userInfo.district}}</span>
-				</div>
+<!--				<div class="privacy_child">-->
+<!--					<span>我的地址</span>-->
+<!--					<span>{{userInfo.district}}</span>-->
+<!--				</div>-->
 			</section>
 			<section class="privacy_top">
 				<div class="privacy_child" @click="gotoMenu('changesex')">
 					<span>性别</span>
-					<span>{{userInfo.sex == 1 ? '女' : '男' }}</span>
+					<span>{{gender == 1 ? '女' : '男' }}</span>
 				</div>
-				<div class="privacy_child">
-					<span>地区</span>
-					<span>{{userInfo.district}}</span>
-				</div>
+<!--				<div class="privacy_child">-->
+<!--					<span>地区</span>-->
+<!--					<span>{{userInfo.district}}</span>-->
+<!--				</div>-->
 				<div class="privacy_child" @click="gotoMenu('changeword')">
 					<span>个性签名</span>
-					<span>{{userInfo.sdasd}}</span>
+					<span>{{word}}</span>
 				</div>
 			</section>
 		</section>
@@ -54,32 +54,73 @@
 	export default{
 		data(){
 			return{
-				userInfo:{},			//用户信息
-				userHeader:''			//用户头像
+				// userInfo:{},			//用户信息
+				// userHeader:'',			//用户头像
+          userName: '',
+          nickName: '',
+          gender: -1,
+          word: ''
 			}
 		},
 		created(){
-			this.getUserInfo();
+			//this.getUserInfo();
+        this.axios({
+            method: 'post',
+            url: 'http://106.53.58.194:8888/msu_im/user/home',
+            data: {
+                username: this.$store.state.username,
+                Token:  this.$store.state.token,
+            },
+            crossDomain: true
+        }).then(body => {
+            console.log(body.data)
+            this.info = body
+
+            var that = this
+            this.userName = body.data.data.username
+            this.nickName = body.data.data.nickname
+            this.gender = body.data.data.gender
+            this.word = body.data.data.userSignature
+
+            this.$store.state.nickname = this.nickName
+            localStorage.setItem('nickname',this.nickName)  // 本地存储更新nickname
+
+            // 错误信息
+            if (this.info.data.code !== 200) {
+                console.log(this.info)
+                setTimeout(function () {
+                    that.password_wrong_show = false
+                }, 2000)
+            }
+            else{
+                console.log("this.info.data.data.token")
+
+            }
+        })
 		},
 		mounted(){
-			this.userInfo=this.userInfo;
-			this.userHeader=imgurl + this.userInfo.avatar
+			// this.userInfo=this.userInfo;
+			// this.userHeader=imgurl + this.userInfo.avatar
 		},
 		components:{
 			headTop,
 		},
 		computed:{
-			...mapState([
-				 "userInfo",
-			]),
+
+			// ...mapState([
+			// 	 "userInfo",
+			// ]),
+
 		},
 		methods:{
 		    gotoMenu(a){
 		      this.$router.push('/me/personaldetails/'+a);
         },
-			...mapActions([
-				'getUserInfo',
-			])
+
+			// ...mapActions([
+			// 	'getUserInfo',
+			// ])
+
 		}
 	}
 </script>

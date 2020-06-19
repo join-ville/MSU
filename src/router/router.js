@@ -1,5 +1,11 @@
 import App from '../App'
+
+import changename from "../frames/me/personaldetails/change/changename"
+import changesex from "../frames/me/personaldetails/change/changesex"
+import changeword from "../frames/me/personaldetails/change/changeword"
+
 import upload from "../frames/upload/upload";
+
 const imgupload = r => require.ensure([], () => r(require('../frames/upload/upload')), 'imgupload')
 
 const dialogue = r => require.ensure([], () => r(require('../frames/dialogue/dialogue')), 'dialogue')
@@ -59,12 +65,6 @@ export default[{
 				{
 					path: '/singlechat/chatmessage',
 					component: chatmessage,
-          children: [
-            {
-              path: '/singlechat/chatmessage/imageupload',
-              component: imageupload,
-            }
-          ]
 				}
 			]
 
@@ -160,6 +160,20 @@ export default[{
 				},
 				{
 					path:'/me/personaldetails',component : personaldetails,		//个人信息
+          children: [
+            {
+              path:'/me/personaldetails/changename',
+              component:changename,
+            },   //设置昵称
+            {
+              path:'/me/personaldetails/changesex',
+              component:changesex,
+            },   //设置性别
+            {
+              path:'/me/personaldetails/changeword',
+              component:changeword,
+            },   //设置个性签名
+          ]
 				},
 				{
 					path:'/me/cardbag',component : cardbag,		//卡包
@@ -177,6 +191,7 @@ export default[{
 		},	//我
 		{path: '/computer', component: computer},	//电脑登录
 		{path: '/transfer', component: transfer},	//文件传送助手
-    {path: '/createGroupChat', component: createGroupChat} //创建群聊
+    {path: '/createGroupChat', component: createGroupChat}, //创建群聊
+    {path: '/imageupload', component: imageupload,}
 	]
 }]
