@@ -51,6 +51,7 @@ export default[{
 		{path: '/dialogue', component: dialogue, },//对话列表页
     {path: '/register', component: register, },//注册
 		{
+		  name: 'singlechat',
 			path: '/singlechat',
 			component: singlechat,
 			children:[

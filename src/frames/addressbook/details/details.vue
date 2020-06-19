@@ -51,9 +51,9 @@
 				</div>
 			</div>
 			<div class="sendmessage"><!--  -->
-				<router-link to='/singlechat' class="send" @click.native="enterdDialogue">
+				<div class="send" @click="enterdDialogue">
 					发消息
-				</router-link>
+				</div>
 			</div>
       <span style="cursor:pointer">
         <div class="deletefriend"><!--  -->
@@ -102,7 +102,35 @@
 				"SAVE_DIALOGUE",
 			]),
 			enterdDialogue(){
+			    alert(this.$store.state.username);
 				this.SAVE_DIALOGUE(this.infor);
+          this.$router.push({ path: '/singlechat', query: { userId:this.$store.state.username,receiverId:this.username}});
+          /*this.axios({
+              method: 'post',
+              url: this.$store.state.baseurl+'/friend/deleteMyFriends',
+              data: {
+                  sendName:this.$store.state.username,
+                  acceptName: this.username,
+                  Token:this.$store.state.token
+              },
+              crossDomain: true
+          })
+              .then(response => {
+                  if (response.data.code == 200) {
+                      this.$router.push('/address')
+                      this.$alert('', '删除成功', {
+                          confirmButtonText: '确定',
+                          callback: action => {
+                              this.$message({
+                                  type: 'info',
+                                  message: successResponse.data.message
+                              })
+                          }
+                      })
+                  }
+              })
+              .catch(error => {
+              })*/
 			},
       deleteFriend(){
         this.axios({
