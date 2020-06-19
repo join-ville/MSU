@@ -22,16 +22,21 @@
       </div>
       <div class="useid" :class="{'useid_border' : borderColortwo}">
         <div class="remark">重复输入密码</div>
-        <div class="input_mark"><input type="password" placeholder="重复输入密码" maxlength="16" @input="inpuCode" v-model="inputcode" @click="accountsCode" /></div>
-        <div class="svg_close" v-if="code" @click="clearCode">
+        <div class="input_mark"><input type="password" placeholder="重复输入密码" maxlength="16" @input="reinpuCode" v-model="reinputcode" @click="accountsCode" /></div>
+        <div class="svg_close" v-if="recode" @click="clearreCode">
           <svg fill="#c3c3c3">
             <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#close"></use>
           </svg>
         </div>
       </div>
+      <section v-if="password_wrong_show" color="red lighten-2" class="remark"
+                 style="margin-left: 10px;color: red;">
+        <span style="color:red;font-size:18px">{{error_img}}</span>
+      </section>
       <div class="login_botton" @click="RegisterSuccess">
         注 册
       </div>
+
     </section>
   </section>
 </template>
@@ -43,10 +48,14 @@
       return{
         inputaccounts: "",		//帐号
         inputcode: "",			//密码
+        reinputcode:"",     //重复输入密码
         accounts: false,		//清除帐号
         code: false,			//清除密码
+        recode: false,    //清楚重复密码
         borderColor:true,		//下边框颜色
-        borderColortwo: false
+        borderColortwo: false,
+        password_wrong_show: false,
+        error_img: '',
       }
     },
     created(){
@@ -68,6 +77,9 @@
       inpuCode(){
         this.inputcode ? this.code=true : this.code=false;
       },
+      reinpuCode(){
+        this.reinputcode ? this.recode=true : this.recode=false;
+      },
       accountsMark(){
         this.borderColor=true;
         this.borderColortwo=false;
@@ -84,6 +96,10 @@
         this.inputcode="";
         this.code=false;
       },
+      clearreCode(){
+        this.reinputcode="";
+        this.recode=false;
+      },
       loginSuccess(){
         if(this.inputaccounts){
           this.$router.push('/dialogue')
@@ -91,7 +107,94 @@
 
       },
       RegisterSuccess(){
-          this.$router.push('/dialogue')
+        if(this.inputaccounts && this.inputcode && this.reinputcode){
+          if(this.inputcode !== this.reinputcode){
+            var that = this
+            this.password_wrong_show = true
+            this.error_img = '两次密码不一致'
+            setTimeout(function () {
+              that.password_wrong_show = false
+            }, 2000)
+          }
+        else{
+            var reg = /^[A-Za-z0-9]{1,30}$/;
+            if(!reg.test(this.inputaccounts) || !reg.test(this.inputcode)){
+              var that = this
+              this.password_wrong_show = true
+              this.error_img = '请填写由字母和数字组成的账户名'
+              setTimeout(function () {
+                that.password_wrong_show = false
+              }, 2000)
+            }
+            else {
+              this.axios({
+                method: 'post',
+                url: 'http://106.53.58.194:8888/msu_im/user/register',
+                data: {
+                  username: this.inputaccounts,
+                  password: this.inputcode,
+                },
+                crossDomain: true
+              }).then(body => {
+                console.log(body.data)
+                this.info = body
+                // 错误信息
+                if (this.info.data.code !== 200) {
+                  console.log(this.info)
+                  var that = this
+                  this.password_wrong_show = true
+                  this.error_img = 'request fail!'
+                  setTimeout(function () {
+                    that.password_wrong_show = false
+                  }, 2000)
+                }
+                else{
+                  this.axios({
+                    method: 'post',
+                    url: 'http://106.53.58.194:8888/msu_im/user/login',
+                    data: {
+                      username: this.inputaccounts,
+                      password: this.inputcode,
+                    },
+                    crossDomain: true
+                  }).then(body => {
+                    console.log(body.data)
+                    this.info = body
+                    // 错误信息
+                    if (this.info.data.code !== 200) {
+                      console.log(this.info)
+                      var that = this
+                      this.password_wrong_show = true
+                      this.error_img = 'request fail!'
+                      setTimeout(function () {
+                        that.password_wrong_show = false
+                      }, 2000)
+                    }
+                    else{
+                      console.log(this.info.data.token)
+                      this.$store.state.username = this.inputaccounts
+                      this.$store.state.token = this.info.data.data.token
+                      this.$store.state.logined  = true
+                      localStorage.setItem('username',this.inputaccounts)
+                      localStorage.setItem('token',this.info.data.data.token)
+                      this.$router.push('/dialogue')
+
+                    }
+                  })
+                }
+              })
+            }
+
+          }
+        }
+        else {
+          var that = this
+          this.password_wrong_show = true
+          this.error_img = '请填写账户名及密码'
+          setTimeout(function () {
+            that.password_wrong_show = false
+          }, 2000)
+        }
       }
     }
   }

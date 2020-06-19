@@ -3,11 +3,11 @@ const imgurl = 'http://cangdu.org/files/images/';
 let baseUrl;
 
 if (process.env.NODE_ENV == 'development') {
-	baseUrl = 'http://cangdu.org:8003'
+	baseUrl = 'http://106.53.58.194:8088'
 }else{
-	baseUrl = 'http://cangdu.org:8003'
+	baseUrl = 'http://106.53.58.194:8088'
 }
 export {
 	baseUrl,
-	imgurl 
+	imgurl
 }

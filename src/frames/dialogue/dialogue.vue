@@ -142,13 +142,29 @@ export default {
             borderColor: true,		//下边框颜色
             borderColortwo: false,
             timer: null,
-            groupHead: [],
-            dialogueList: [],
+            groupHead: [],  //group chat list
+            dialogueList: [], //single chat list
             consumerthing: false,
         }
     },
     created() {
         this.initData()
+        thie.$axios({
+          method: 'post',
+          url: this.$store.state.baseurl+'',
+          data: {
+            username: localStorage.getItem('username'),
+            token: this.$store.state.token
+          },
+          crossDomain: true
+        })
+        .then(response => {
+          if (response.data.code == 200)
+          {
+            this.dialogueList = response.data.singleChat
+            this.groupHead = response.data.groupChat
+          }
+        })
     },
     beforeDestroy() {
 
@@ -242,7 +258,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import "~src/style/public";
+@import "../../style/public";
 .router-show-enter-active,
 .router-show-leave-active {
     transition: all 0.4s;

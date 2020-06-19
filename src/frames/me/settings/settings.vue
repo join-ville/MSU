@@ -26,7 +26,7 @@
 				<!-- <router-link to='/me/settings/help' tag="li">
 					帮助与反馈
 				</router-link> -->
-				<router-link to='/me/settings/login' tag="li">
+				<router-link to='/me/settings/login'  @click="logout" tag="li">
 					退出
 				</router-link>
 			</ul>
@@ -34,7 +34,7 @@
 		<transition name="router-show">
 		    <router-view></router-view>
 		</transition>
-	</section>	
+	</section>
 </template>
 
 <script>
@@ -42,23 +42,26 @@
 	export default{
 		data(){
 			return{
-				
+
 			}
 		},
 		created(){
 
 		},
 		mounted(){
-			
+
 		},
 		components:{
 			headTop,
 		},
 		computed:{
-			
+
 		},
 		methods:{
-
+    logout(){
+      localStorage.removeItem("username")
+      localStorage.removeItem("token")
+    }
 		}
 	}
 </script>

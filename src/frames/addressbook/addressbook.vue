@@ -21,6 +21,21 @@
                             新的朋友
                         </div>
                     </router-link>
+                  <router-link v-if="newRequest"
+                                to=""
+                               tag="li"
+                               class="contacts_li">
+
+                    <div class="contacts_text">
+                      新的朋友:<br>{{this.RequestName}}
+                    </div>
+                    <div class="acc_botton" @click="acceptRequest">
+                    接受
+                    </div>
+                    <div class="refuse_botton" @click="refuseRequest">
+                      拒绝
+                    </div>
+                  </router-link>
                     <router-link to=""
                                  tag="li"
                                  class="contacts_li">
@@ -69,9 +84,10 @@
                     <li v-for="(value, key, index) in manageaddress"
                         :key="index"
                         class="addlistLi">
-                        <h1>{{key}}</h1>
+                        <h1>{{key}}</h1> <!--the first letter -->
                         <ul>
-                            <router-link to="/addressbook/details"
+                            <router-link :to="{path: '/addressbook/details', query: {username: item.username}}"
+                                         style="cursor: pointer"
                                          tag="li"
                                          v-for="(item, indexLink) in value"
                                          :key="indexLink"
@@ -81,9 +97,22 @@
                                          alt="">
                                 </div>
                                 <div class="personlist_name ellipsis">
-                                    {{item.remarks ? item.remarks : item.petname}}
+                                    {{item.username}}
                                 </div>
                             </router-link>
+<!--                            <table>-->
+<!--                              <tr v-for="(item, indexLink) in value"-->
+<!--                                  :key="indexLink">-->
+<!--                                <div class="personlist_img">-->
+<!--                                  <img :src="item.newImg">-->
+<!--                                </div>-->
+<!--                                <div class="personlist_name ellipsis">-->
+<!--                                  <router-link :to="{path: '/addressbook/details', query: {username: item.username}}">-->
+<!--                                    {{item.username}}-->
+<!--                                  </router-link>-->
+<!--                                </div>-->
+<!--                              </tr>-->
+<!--                            </table>-->
                         </ul>
                     </li>
                 </ul>
@@ -120,7 +149,7 @@
 <script>
 import headTop from 'src/components/header/head'
 import footGuide from 'src/components/footer/foot'
-import { contactList } from 'src/service/getData'
+//import { contactList } from 'src/service/getData'
 import { animate } from 'src/config/mUtils.js'
 import { mapMutations } from 'vuex'
 export default {
@@ -129,22 +158,47 @@ export default {
             contactList: {},		//所有通讯录列表
             peoplenum: null,		//通讯录人数
             letter: false,		//字母放大
+            newRequest:false,
+            RequestName:'join11',
         }
     },
     created() {
-
+      //console.log('created'+this.$store.state.username)
+      //this.$store.dispatch('changeUsername',localStorage.getItem('username'))
+      //console.log('created'+this.$store.state.username)
+        this.axios({
+          method: 'post',
+          url: this.$store.state.baseurl+'/friend/viewMyFriends',
+          data: {
+              // username:'ruwo',
+              // Token:'123456'
+              username: localStorage.getItem('username'),
+              token: this.$store.state.token
+          },
+          crossDomain: true
+        })
+          .then(response => {
+              if (response.data.code == 200)
+                this.contactList = response.data.data
+          })
+          .catch(error => {
+          })
     },
     beforeMount() {
 
 
     },
     mounted() {
-        contactList().then((res) => {
-            this.contactList = res;
+      //console.log('1111'+this.$store.state.username)
+      //this.$store.dispatch('changeUsername',localStorage.getItem('username'))
+      //console.log('1111'+this.$store.state.username)
+      this.viewRequest()
+        // contactList().then((res) => {
+        //     this.contactList = res;
 
 
 
-        })
+        // })
     },
     components: {
         headTop,
@@ -153,6 +207,7 @@ export default {
     computed: {
 
         manageaddress() {
+
             let addresslist = {};
             for (let i = 65; i <= 90; i++) {
                 if (this.contactList[String.fromCharCode(i)]) {
@@ -178,8 +233,97 @@ export default {
         ...mapMutations([
             'SAVE_MESSAGE'
         ]),
+      GoToDetail : function(item){
+          const that=this
+        that.$router.push({ path: '/addressbook/details', params: { username:  item.username}})
+      },
+      viewRequest(){
+        this.axios({
+          method: 'post',
+          url: this.$store.state.baseurl+'friend/viewRequest',
+          data: {
+            username: this.$store.state.username,
+            Token:this.$store.state.token,
+          },
+          crossDomain: true
+        }).then(body => {
+          console.log(body.data)
+          this.info = body
+          // 错误信息
+          if (this.info.data.code === 200) {
+            this.newRequest = true
+            this.RequestName = this.info.data.data[0].sendUserName
+            /*var that = this
+            this.password_wrong_show = true
+            this.error_img = 'request fail!'
+            setTimeout(function () {
+              that.password_wrong_show = false
+            }, 2000)*/
+          }
+
+        })
+      },
+      acceptRequest(){
+        this.axios({
+          method: 'post',
+          url: this.$store.state.baseurl+'friend/acceptRequest',
+          data: {
+            sendName:this.RequestName ,
+            acceptName: this.$store.state.username,
+            Token:this.$store.state.token,
+          },
+          crossDomain: true
+        }).then(body => {
+          console.log(body.data)
+          this.info = body
+          // 错误信息
+          if (this.info.data.code !== 200) {
+            console.log(this.info)
+            /*var that = this
+            this.password_wrong_show = true
+            this.error_img = 'request fail!'
+            setTimeout(function () {
+              that.password_wrong_show = false
+            }, 2000)*/
+          }
+          else{
+            this.newRequest = false
+          }
+        })
+      },
+      refuseRequest(){
+        this.axios({
+          method: 'post',
+          url: this.$store.state.baseurl+'friend/refuseRequest',
+          data: {
+            sendName: this.RequestName,
+            acceptName: this.$store.state.username,
+            Token:this.$store.state.token,
+          },
+          crossDomain: true
+        }).then(body => {
+          console.log(body.data)
+          this.info = body
+          // 错误信息
+          if (this.info.data.code !== 200) {
+            console.log(this.info)
+            /*var that = this
+            this.password_wrong_show = true
+            this.error_img = 'request fail!'
+            setTimeout(function () {
+              that.password_wrong_show = false
+            }, 2000)*/
+          }
+          else{
+            this.newRequest = false
+          }
+        })
+      },
+
         detailMessage(item) {
             this.SAVE_MESSAGE(item);
+            this.$store.state.gotoDetail=item.username
+            //this.$router.push({ name: 'addressbook/details', params: { username: item.username}});
         },
         startThing(value) {
             this.letter = true;
@@ -224,7 +368,24 @@ export default {
 .router-show-leave {
     transform: translateX(100%);
 }
-
+.acc_botton{
+  width: 50px;
+  margin-left: 0px;
+  text-align:center;
+  background:#1aad19;
+  border-radius:5px;
+  line-height:1.6rem;
+  @include sizeColor(.7rem,#fff);
+}
+.refuse_botton{
+  width: 50px;
+  margin-left: 10px;
+  text-align:center;
+  background: orangered;
+  border-radius:5px;
+  line-height:1.6rem;
+  @include sizeColor(.7rem,#fff);
+}
 .contacts {
     width: 100%;
     background: #fff;
@@ -249,6 +410,7 @@ export default {
                 .contacts_text {
                     @include sizeColor(0.64rem, #2a2a2a);
                     margin-left: 0.5333333333rem;
+                    margin-right: 100px;
                 }
             }
             .contacts_li:last-child {

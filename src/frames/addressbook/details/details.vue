@@ -16,13 +16,13 @@
 						</div>
 					</div>
 					<div class="details_right_obt">
-						微信号：{{infor.wxid}}
+						微信号：{{this.username}}
 					</div>
 				</div>
 			</div>
 			<div class="details_li">
 				<router-link to='' class="setnote">
-					设置备注和标签
+					设置备注和标签{{this.username}}
 				</router-link>
 			</div>
 			<div class="details_person">
@@ -49,17 +49,24 @@
 							更多
 					</router-link>
 				</div>
-			</div> 
+			</div>
 			<div class="sendmessage"><!--  -->
 				<router-link to='/singlechat' class="send" @click.native="enterdDialogue">
 					发消息
 				</router-link>
 			</div>
+      <span style="cursor:pointer">
+        <div class="deletefriend"><!--  -->
+        <div class="send" v-on:click="deleteFriend">
+          删除好友
+        </div>
+      </div>
+      </span>
 		</div>
 		<transition name="router-show">
 		    <router-view></router-view>
 		</transition>
-	</section>	 
+	</section>
 </template>
 
 <script>
@@ -68,14 +75,16 @@
 	export default{
 		data(){
 			return{
-				gallery:[]		//个人相册
+				gallery:[],		//个人相册
+        username
 			}
 		},
 		created(){
 
+      this.username=this.$route.query.username
 		},
 		mounted(){
-			
+
 			this.gallery=this.infor.gallery;
 
 		},
@@ -86,7 +95,7 @@
 			...mapState([
 			    "infor", "contactList", "conversine"
 			]),
-			
+
 		},
 		methods:{
 			...mapMutations([
@@ -94,7 +103,33 @@
 			]),
 			enterdDialogue(){
 				this.SAVE_DIALOGUE(this.infor);
-			}
+			},
+      deleteFriend(){
+        this.axios({
+          method: 'post',
+          url: this.$store.state.baseurl+'/friend/deleteMyFriends',
+          data: {
+            sendName:this.$store.state.username,
+            acceptName: this.username,
+            Token:this.$store.state.token
+          },
+          crossDomain: true
+        })
+          .then(response => {
+            if (response.data.code == 200)
+              this.$alert('','删除成功', {
+                confirmButtonText: '确定',
+                callback: action => {
+                  this.$message ({
+                    type:'info',
+                    message: successResponse.data.message
+                  })
+                }
+              })
+          })
+          .catch(error => {
+          })
+      }
 		}
 	}
 </script>
@@ -158,7 +193,7 @@
 				width:100%;
 				@include sizeColor(0.64rem,#000);
 			}
-			
+
 		}
 		.details_person{
 			padding:0.512rem 0.5973333333rem;
@@ -175,7 +210,7 @@
 					margin-left:2.432rem;
 					@include align(center);
 				}
-				
+
 			}
 			.details_person_more{
 				.clickmore{
@@ -222,5 +257,21 @@
 				line-height:2.0053333333rem;
 			}
 		}
+    .deletefriend{
+      width:14.1653333333rem;
+      margin:0 auto;
+      margin-top:0.8533333333rem;
+      .send{
+        display:block;
+        border-radius:5px;
+        text-align:center;
+        width:14.1226666667rem;
+        border:1px solid #FF0000	;
+        background:	#DC143C;
+        @include sizeColor(0.7253333333rem,#fff);
+        letter-spacing:4px;
+        line-height:2.0053333333rem;
+      }
+    }
 	}
 </style>

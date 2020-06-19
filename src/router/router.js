@@ -1,7 +1,10 @@
-import App from '../app'
+import App from '../App'
+import upload from "../frames/upload/upload";
+const imgupload = r => require.ensure([], () => r(require('../frames/upload/upload')), 'imgupload')
 
 const dialogue = r => require.ensure([], () => r(require('../frames/dialogue/dialogue')), 'dialogue')
 const singlechat = r => require.ensure([], () => r(require('../frames/conversation/singlechat')), 'singlechat')
+const imageupload = r => require.ensure([], () => r(require('../frames/conversation/chatmessage/imageupload')), 'imageupload')
 const groupchat = r => require.ensure([], () => r(require('../frames/conversation/groupchat')), 'groupchat')
 const chatmessage = r => require.ensure([], () => r(require('../frames/conversation/chatmessage/chatmessage')), 'chatmessage')
 const groupchatmessage = r => require.ensure([], () => r(require('../frames/conversation/chatmessage/groupchatmessage')), 'groupchatmessage')
@@ -24,6 +27,8 @@ const computer = r => require.ensure([], () => r(require('../frames/computer/com
 const transfer = r => require.ensure([], () => r(require('../frames/transfer/transfer')), 'transfer')
 const settings = r => require.ensure([], () => r(require('../frames/me/settings/settings')), 'settings')
 const search = r => require.ensure([], () => r(require('../frames/search/search')), 'search')
+const addFriend = r => require.ensure([], () => r(require('../frames/search/addFriend')), 'addFriend')
+const searchResult= r => require.ensure([], () => r(require('../frames/search/details')), 'searchResult')
 
 const newmessage = r => require.ensure([], () => r(require('../frames/me/settings/detailset/newmessage')), 'newmessage')
 const disturbance = r => require.ensure([], () => r(require('../frames/me/settings/detailset/disturbance')), 'disturbance')
@@ -34,10 +39,13 @@ const aboutwc = r => require.ensure([], () => r(require('../frames/me/settings/d
 const help = r => require.ensure([], () => r(require('../frames/me/settings/detailset/help')), 'help')
 const login = r => require.ensure([], () => r(require('../frames/me/settings/detailset/login')), 'login')
 const register = r => require.ensure([], () => r(require('../frames/me/settings/detailset/register')), 'register')
+const test = r => require.ensure([], () => r(require('../../src/chat')), 'test')
+
 export default[{
 	path:'/',
 	component:App,
 	children: [
+    //{path: '', redirect: '/dialogue'},   //地址为空时跳转登录页面
 		{path: '', redirect: '/me/settings/login'},   //地址为空时跳转登录页面
 		{path: '/dialogue', component: dialogue, },//对话列表页
     {path: '/register', component: register, },//注册
@@ -48,6 +56,12 @@ export default[{
 				{
 					path: '/singlechat/chatmessage',
 					component: chatmessage,
+          children: [
+            {
+              path: '/singlechat/chatmessage/imageupload',
+              component: imageupload,
+            }
+          ]
 				}
 			]
 
@@ -62,10 +76,12 @@ export default[{
 				}
 			]
 		},			//群聊
-		{path: '/addressbook', component: addressbook, meta:{ keepAlive: true},
+		{path: '/addressbook',
+      component: addressbook, meta:{ keepAlive: false},
 			children: [
 				{
 					path: '/addressbook/details',
+          name: 'frienddetails',
 					component: details,		//详细资料
 					children: [
 						{
@@ -77,6 +93,10 @@ export default[{
 			]
 
 		},	//通讯录
+    {path: '/test',
+      component: test,
+
+    },
 		{path: '/find', component: find,
 			children:[
 				{
@@ -90,6 +110,8 @@ export default[{
 			]
 		},	//发现
 		{path: '/search', component: search},	//发现
+    {path: '/searchResult', name:'searchResult',component: searchResult},
+    {path: '/addFriend', component: addFriend},	//添加好友
 		{path: '/me', component: me,
 			children: [
 				{path:'/me/settings',component: settings,//设置
