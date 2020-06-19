@@ -5,13 +5,13 @@
       <ul>
         <li>
           <div>
-            <input type="radio" name="radios" value="1" v-model="param">
+            <input type="radio" name="radios" value="0" v-model="param">
             <label>男</label>
           </div>
         </li>
         <li>
           <div>
-            <input type="radio" name="radios" value="2" v-model="param">
+            <input type="radio" name="radios" value="1" v-model="param">
             <label>女</label>
           </div>
         </li>
@@ -25,14 +25,53 @@
         name: "changesex",
         data(){
             return{
-              param: '1'
+              param: '',
+              temp: 0
             }
         },
         created(){
 
         },
         mounted(){
+            this.param = this.$store.state.gender
+        },
+        watch:{
+            'param'(){
+                // console.log(this.param)
+                if (this.temp !== 0) {
+                    this.axios({
+                        method: 'post',
+                        url: 'http://106.53.58.194:8888/msu_im/user/home/setGender',
+                        data: {
+                            username: this.$store.state.username,
+                            gender: this.param,
+                            Token:  this.$store.state.token,
+                        },
+                        crossDomain: true
+                    }).then(body => {
+                        console.log(body.data)
+                        this.info = body
 
+                        var that = this
+
+                        this.$store.state.gender = this.param
+                        localStorage.setItem('gender',this.param)  // 本地存储更新gender
+
+                        // 错误信息
+                        if (this.info.data.code !== 200) {
+                            console.log(this.info)
+                            alert("请求失败")
+                        }
+                        else{
+                            alert("修改成功")
+                        }
+
+                        this.$router.go(-1)
+                    })
+                }
+                else this.temp = 1
+
+            }
         },
         components:{
             headTop,
@@ -41,32 +80,7 @@
 
         },
         methods:{
-            submit(){
-                this.$axios
-                    .post('http://106.53.58.194:8088/msu_im/user/home/setGender' , {
 
-                    })
-                    .then(successResponse => {
-                        if (successResponse.data.code === 200) {
-                            this.$message({
-                                type: 'success',
-                                message: '设置成功！'
-                            })
-                            this.$router.go(-1)
-                        } else {
-                            this.$message({
-                                type: 'error',
-                                message: '设置失败！请重试'
-                            })
-                        }
-                    })
-                    .catch(failResponse => {
-                        this.$message({
-                            type: 'error',
-                            message: '服务器未响应'
-                        })
-                    })
-            }
         }
     }
 </script>
