@@ -13,10 +13,10 @@ if ('addEventListener' in document) {
 }
 
 
-var axios = require('axios')
-axios.default.baseURI = 'http://localhost:8443/api'
-Vue.prototype.$axios = axios
-Vue.config.productionTip = false
+//var axios = require('axios')
+//axios.default.baseURI = 'http://localhost:8443/api'
+//Vue.prototype.$axios = axios
+//Vue.config.productionTip = falses
 
 
 Vue.use(VueRouter)
