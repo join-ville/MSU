@@ -3,11 +3,11 @@
 		<head-top crossover="个人信息"></head-top>
 		<section class="privacy">
 			<section class="privacy_top">
-				<div class="privacy_child">
+				<div class="privacy_child" onclick="alert('成功')">
 					<span>头像</span>
 					<img :src="userHeader" alt="">
 				</div>
-				<div class="privacy_child">
+				<div class="privacy_child" @click="gotoMenu('changename')">
 					<span>昵称</span>
 					<span>{{userInfo.name}}</span>
 				</div>
@@ -27,7 +27,7 @@
 				</div>
 			</section>
 			<section class="privacy_top">
-				<div class="privacy_child">
+				<div class="privacy_child" @click="gotoMenu('changesex')">
 					<span>性别</span>
 					<span>{{userInfo.sex == 1 ? '女' : '男' }}</span>
 				</div>
@@ -35,13 +35,16 @@
 					<span>地区</span>
 					<span>{{userInfo.district}}</span>
 				</div>
-				<div class="privacy_child">
+				<div class="privacy_child" @click="gotoMenu('changeword')">
 					<span>个性签名</span>
 					<span>{{userInfo.sdasd}}</span>
 				</div>
 			</section>
 		</section>
-	</section>	
+    <transition name="router-show">
+      <router-view></router-view>
+    </transition>
+	</section>
 </template>
 
 <script>
@@ -55,7 +58,7 @@
 				userHeader:''			//用户头像
 			}
 		},
-		created(){ 
+		created(){
 			this.getUserInfo();
 		},
 		mounted(){
@@ -67,10 +70,13 @@
 		},
 		computed:{
 			...mapState([
-				 "userInfo", 
+				 "userInfo",
 			]),
 		},
 		methods:{
+		    gotoMenu(a){
+		      this.$router.push('/me/personaldetails/'+a);
+        },
 			...mapActions([
 				'getUserInfo',
 			])
@@ -88,6 +94,12 @@
 		z-index: 203;
 		background-color: #ebebeb;
 	}
+  .router-show-enter-active,.router-show-leave-active{
+    transition: all .4s;
+  }
+  .router-show-enter,.router-show-leave-active{
+    transform:translateX(100%)
+  }
 	.privacy{
 		padding-top: 3.06933rem;
 		.privacy_top{
