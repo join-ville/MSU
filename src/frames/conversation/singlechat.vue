@@ -32,8 +32,38 @@
                 receiverId:this.$route.query.receiverId,//对方ID
                 avatar: '', // 当前用户头像
                 list: [], // 聊天记录的数组
+                mainList: [],//接受返回的数据
                 contentText: "" // input输入的值
             };
+        },
+        created:function(){
+
+                this.axios({
+                    method: 'post',
+                    url: this.$store.state.baseurl+'user/getUnreadMsgList',
+                    data: {
+                        sendName:this.userId,
+                        acceptName:this.receiverId,
+                    },
+                    crossDomain: true
+                }).then(response => {
+                    if (response.data.code == 200) {
+                        alert('test' + JSON.stringify(response.data));
+                        this.mainList = response.data.data;
+                    }
+                })
+                    .catch(error => {
+
+                    });
+
+                for(var x=0, length=this.mainList.length; x<length;x++){
+                    this.list=[
+                        ...this.list,
+                        {   senderId:this.mainList[i].senderId,
+                            msg:this.mainList[i].msg,
+                        }
+                    ]
+                }
         },
         mounted() {
             this.initWebSocket();
@@ -56,15 +86,17 @@
                     senderId:_this.userId,
                     msg: _this.contentText,
                     receiverId:_this.receiverId,
-                    msgId:'1'
+                    msgId:''
                 };
+
+
                 _this.list = [
                     ..._this.list,
                     {   senderId:chatMsg.senderId,
                         msg:chatMsg.msg,
                     }
                 ];
-
+                localStorage.setItem('list',JSON.stringify(_this.list));
                 let params = {
                     action:'2',
                     chatMsg:chatMsg,
@@ -80,6 +112,7 @@
             // 进入页面创建websocket连接
             initWebSocket() {
                 let _this = this;
+
                 // 判断页面有没有存在websocket连接
                 if (window.WebSocket) {
 
@@ -105,14 +138,15 @@
                         const data = JSON.parse(e.data);
                         const obj = JSON.parse(data);
                         console.log("接受: "+data);
-
                         _this.list = [
                             ..._this.list,
                             {   senderId:obj.chatMsg.senderId,
                                 msg:obj.chatMsg.msg,
                             }
                         ];
+                        localStorage.setItem('list',JSON.stringify(_this.list));
                     };
+
                 }
             },
             // 滚动条到底部
