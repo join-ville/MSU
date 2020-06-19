@@ -4,7 +4,7 @@
     <section class="changename">
       <ul>
         <li>
-          <input type="text" :placeholder="userInfo.name" v-model="tempName">
+          <input type="text" v-model="tempName">
           <button v-on:click="submit(this)" style="background-color: black;color:white">完成</button>
         </li>
       </ul>
@@ -18,23 +18,26 @@
         name: "changename",
         data(){
             return{
-                userInfo:{},
+                // userInfo:{},
                 tempName: ''
+
             }
         },
         created(){
-          this.getUserInfo();
+          // this.getUserInfo();
+
         },
         mounted(){
-          this.userInfo=this.userInfo;
+          // this.userInfo=this.userInfo;
+            this.tempName = this.$store.state.nickname
         },
         components:{
             headTop,
         },
         computed:{
-            ...mapState([
-                "userInfo",
-            ]),
+            // ...mapState([
+            //     "userInfo",
+            // ]),
         },
         methods:{
             submit(){
@@ -64,9 +67,9 @@
                         })
                     })
             },
-            ...mapActions([
-                'getUserInfo',
-            ])
+            // ...mapActions([
+            //     'getUserInfo',
+            // ])
         }
     }
 </script>

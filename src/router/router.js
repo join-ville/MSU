@@ -1,4 +1,8 @@
 import App from '../App'
+import changename from "../frames/me/personaldetails/change/changename"
+import changesex from "../frames/me/personaldetails/change/changesex"
+import changeword from "../frames/me/personaldetails/change/changeword"
+
 import upload from "../frames/upload/upload";
 const imgupload = r => require.ensure([], () => r(require('../frames/upload/upload')), 'imgupload')
 
@@ -154,6 +158,20 @@ export default[{
 				},
 				{
 					path:'/me/personaldetails',component : personaldetails,		//个人信息
+          children: [
+            {
+              path:'/me/personaldetails/changename',
+              component:changename,
+            },   //设置昵称
+            {
+              path:'/me/personaldetails/changesex',
+              component:changesex,
+            },   //设置性别
+            {
+              path:'/me/personaldetails/changeword',
+              component:changeword,
+            },   //设置个性签名
+          ]
 				},
 				{
 					path:'/me/cardbag',component : cardbag,		//卡包
