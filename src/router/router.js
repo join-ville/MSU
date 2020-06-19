@@ -8,6 +8,7 @@ const imageupload = r => require.ensure([], () => r(require('../frames/conversat
 const groupchat = r => require.ensure([], () => r(require('../frames/conversation/groupchat')), 'groupchat')
 const chatmessage = r => require.ensure([], () => r(require('../frames/conversation/chatmessage/chatmessage')), 'chatmessage')
 const groupchatmessage = r => require.ensure([], () => r(require('../frames/conversation/chatmessage/groupchatmessage')), 'groupchatmessage')
+const createGroupChat = r => require.ensure([], () => r(require('../frames/conversation/createGroupChat')), 'createGroupChat')
 
 const addressbook = r => require.ensure([], () => r(require('../frames/addressbook/addressbook')), 'addressbook')
 const details = r => require.ensure([], () => r(require('../frames/addressbook/details/details')), 'details')
@@ -170,5 +171,6 @@ export default[{
 		},	//我
 		{path: '/computer', component: computer},	//电脑登录
 		{path: '/transfer', component: transfer},	//文件传送助手
+    {path: '/createGroupChat', component: createGroupChat} //创建群聊
 	]
 }]

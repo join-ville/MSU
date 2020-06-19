@@ -35,7 +35,7 @@
 			<div class="cover" @click="controlhide"></div>
 			<div class="selectlist">
 				<ul>
-					<router-link to='' tag="li" class="selectpart_li">
+					<router-link :to="{path:'/createGroupChat'}" tag="li" class="selectpart_li">
 						<section class="selectsvg">
 							<svg fill="#fff">
 								<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#wxspeak"></use>
