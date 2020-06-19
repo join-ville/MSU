@@ -90,6 +90,9 @@
             this.$store.state.gender = this.gender
             localStorage.setItem('gender',this.gender)  //  本地存储更新gender
 
+            this.$store.state.sign = this.word
+            localStorage.setItem('sign',this.word)  //  本地存储更新signature
+
             // 错误信息
             if (this.info.data.code !== 200) {
                 console.log(this.info)
@@ -111,6 +114,7 @@
 		    '$route'(){
 		        this.nickName = this.$store.state.nickname
             this.gender = this.$store.state.gender
+            this.word = this.$store.state.sign
         }
     },
 		components:{

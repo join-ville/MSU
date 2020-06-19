@@ -13,7 +13,6 @@
 </template>
 <script>
     import headTop from 'src/components/header/head'
-    import {mapState, mapActions} from "vuex";
     export default{
         name: "changename",
         data(){
@@ -78,9 +77,8 @@
                         }
                         else{
                             console.log("this.info.data.data.token")
+                            this.$router.go(-1)
                         }
-
-                        this.$router.go(-1)
                     })
                 }
 

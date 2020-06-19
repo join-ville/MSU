@@ -4,7 +4,7 @@
     <section class="changename">
       <ul>
         <li>
-          <textarea placeholder="1111" v-model="tempText" aria-placeholder="userInfo.sdasd"></textarea>
+          <textarea v-model="tempText"></textarea>
           <button v-on:click="submit()" style="background-color: black;color:white">完成</button>
         </li>
       </ul>
@@ -17,14 +17,16 @@
         name: "changeword",
         data(){
             return{
-                tempText: ''
+                tempText: '',
+                text: ''
             }
         },
         created(){
 
         },
         mounted(){
-
+            this.tempText = this.$store.state.sign
+            this.text = this.tempText
         },
         components:{
             headTop,
@@ -34,32 +36,43 @@
         },
         methods:{
             submit(){
-                 alert(this.tempText);
-                this.$axios
-                    .post('http://106.53.58.194:8088/msu_im/user/home/setSignature' , {
+                if (this.tempText == this.text) {
+                    alert("个性签名未改变！")
+                }
+                else if (this.tempText.length > 60) {
+                    alert("请使用60个字符以内的个性签名！")
+                }
+                else {
+                    this.axios({
+                        method: 'post',
+                        url: 'http://106.53.58.194:8888/msu_im/user/home/setSignature',
+                        data: {
+                            username: this.$store.state.username,
+                            userSignature: this.tempText,
+                            Token:  this.$store.state.token,
+                        },
+                        crossDomain: true
+                    }).then(body => {
+                        console.log(body.data)
+                        this.info = body
 
-                    })
-                    .then(successResponse => {
-                        if (successResponse.data.code === 200) {
-                            this.$message({
-                                type: 'success',
-                                message: '设置成功！'
-                            })
+                        var that = this
+
+                        this.$store.state.sign = this.tempText
+                        localStorage.setItem('sign',this.tempText)  // 本地存储更新signature
+
+                        // 错误信息
+                        if (this.info.data.code !== 200) {
+                            console.log(this.info)
+                            alert("请求失败")
+                        }
+                        else{
+                            console.log("this.info.data.data.token")
                             this.$router.go(-1)
-                        } else {
-                            this.$message({
-                                type: 'error',
-                                message: '设置失败！请重试'
-                            })
                         }
                     })
-                    .catch(failResponse => {
-                        this.$message({
-                            type: 'error',
-                            message: '服务器未响应'
-                        })
-                    })
-            }
+                }
+            },
         }
     }
 </script>
