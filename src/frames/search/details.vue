@@ -99,9 +99,9 @@
           method: 'post',
           url: this.$store.state.baseurl+'friend/sendRequest',
           data: {
-            sendName: this.$store.state.username,
+            sendName: localStorage.getItem('username'),
             acceptName: this.$route.params.username,
-            Token:this.$store.state.token,
+            Token:localStorage.getItem('token'),
           },
           crossDomain: true
         }).then(body => {
