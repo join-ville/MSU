@@ -172,8 +172,8 @@ export default {
           data: {
               // username:'ruwo',
               // Token:'123456'
-              username: localStorage.getItem('username'),
-              token: this.$store.state.token
+              username: this.$store.state.username,
+              Token: this.$store.state.token
           },
           crossDomain: true
         })

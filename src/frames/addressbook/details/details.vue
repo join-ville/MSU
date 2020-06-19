@@ -116,16 +116,18 @@
           crossDomain: true
         })
           .then(response => {
-            if (response.data.code == 200)
-              this.$alert('','删除成功', {
+            if (response.data.code == 200) {
+              this.$router.push('/address')
+              this.$alert('', '删除成功', {
                 confirmButtonText: '确定',
                 callback: action => {
-                  this.$message ({
-                    type:'info',
+                  this.$message({
+                    type: 'info',
                     message: successResponse.data.message
                   })
                 }
               })
+            }
           })
           .catch(error => {
           })
