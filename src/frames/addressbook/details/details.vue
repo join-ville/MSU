@@ -73,6 +73,7 @@
 	import headTop from 'src/components/header/head'
 	import {mapState, mapMutations} from 'vuex'
 	export default{
+	  inject: ['reload'],
 		data(){
 			return{
 				gallery:[],		//个人相册
@@ -145,7 +146,8 @@
         })
           .then(response => {
             if (response.data.code == 200) {
-              this.$router.push('/address')
+              this.reload()
+              this.$router.push('/addressbook')
               this.$alert('', '删除成功', {
                 confirmButtonText: '确定',
                 callback: action => {

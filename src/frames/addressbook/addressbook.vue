@@ -153,6 +153,7 @@ import footGuide from 'src/components/footer/foot'
 import { animate } from 'src/config/mUtils.js'
 import { mapMutations } from 'vuex'
 export default {
+    inject: ['reload'],
     data() {
         return {
             contactList: {},		//所有通讯录列表
@@ -288,6 +289,7 @@ export default {
           }
           else{
             this.newRequest = false
+            this.reload()
           }
         })
       },
