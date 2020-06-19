@@ -3,7 +3,7 @@
 		<head-top crossover="个人信息"></head-top>
 		<section class="privacy">
 			<section class="privacy_top">
-				<div class="privacy_child" onclick="alert('成功')">
+				<div class="privacy_child" v-on:click="changeAvatar">
 					<span>头像</span>
 					<img :src="userHeader" alt="">
 				</div>
@@ -116,6 +116,9 @@
 		    gotoMenu(a){
 		      this.$router.push('/me/personaldetails/'+a);
         },
+        changeAvatar() {
+		      this.$router.push('/imageupload')
+        }
 
 			// ...mapActions([
 			// 	'getUserInfo',
