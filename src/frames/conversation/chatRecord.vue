@@ -7,7 +7,7 @@
           <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#back"></use>
         </svg>
       </section>
-      与{{receiverId}}的会话
+      与{{receiverId}}的聊天记录
     </header>
     <div class="msg-box" ref="msg-box">
       <div
@@ -23,11 +23,6 @@
           <span :style="i.senderId == userId?' float: right;':''" :class="i.senderId == userId?'right':'left'">{{i.msg}}</span>
         </div>
       </div>
-    </div>
-    <div class="input-box">
-      <input type="text" ref="sendMsg" v-model="contentText" @keyup.enter="sendText()" />
-      <div class="btn" :class="{['btn-active']:contentText}" @click="sendText()">发送</div>
-      <div class="crd" @click="chatRecord()">记录</div>
     </div>
   </div>
 </template>
@@ -46,30 +41,30 @@
             };
         },
         created:function(){
-                this.axios({
-                    method: 'post',
-                    url: this.$store.state.baseurl+'user/getUnreadMsgList',
-                    data: {
-                        sendName:this.userId,
-                        acceptName:this.receiverId,
-                    },
-                    crossDomain: true
-                }).then(response => {
-                    if (response.data.code == 200) {
-                        this.mainList = response.data.data;
-                        for(var x=this.mainList.length-1; x>-1;x--){
-                            this.list=[
-                                ...this.list,
-                                {   senderId:this.mainList[x].sendUserId,
-                                    msg:this.mainList[x].msg,
-                                }
-                            ]
-                        }
-                        alert('test' + JSON.stringify(this.list));
+            this.axios({
+                method: 'post',
+                url: this.$store.state.baseurl+'/user/getHistoryMsg',
+                data: {
+                    sendName:this.userId,
+                    acceptName:this.receiverId,
+                },
+                crossDomain: true
+            }).then(response => {
+                if (response.data.code == 200) {
+                    this.mainList = response.data.data;
+                    for(var x=this.mainList.length-1; x>-1;x--){
+                        this.list=[
+                            ...this.list,
+                            {   senderId:this.mainList[x].sendUserId,
+                                msg:this.mainList[x].msg,
+                            }
+                        ]
                     }
-                })
-                    .catch(error => {
-                    });
+                    alert('test' + JSON.stringify(this.list));
+                }
+            })
+                .catch(error => {
+                });
 
 
 
@@ -120,10 +115,6 @@
                 setTimeout(() => {
                     _this.scrollBottm();
                 }, 500);
-            },
-            // 聊天记录
-            chatRecord(){
-                this.$router.push({ path: '/chatRecord', query: { userId:this.userId,receiverId:this.receiverId}});
             },
             // 进入页面创建websocket连接
             initWebSocket() {
@@ -290,7 +281,7 @@
       justify-content: space-between;
       align-items: center;
       input {
-        height: 1.8rem;
+        height: 2.3rem;
         display: inline-block;
         width: 100%;
         padding: 0.5rem;
@@ -312,18 +303,6 @@
       }
       .btn-active {
         background: #409eff;
-      }
-      .crd {
-        height: 2.3rem;
-        min-width: 4rem;
-        background: #409eff;
-        padding: 0.5rem;
-        font-size: 0.88rem;
-        color: white;
-        text-align: center;
-        border-radius: 0.2rem;
-        margin-left: 0.5rem;
-        transition: 0.5s;
       }
     }
   }
