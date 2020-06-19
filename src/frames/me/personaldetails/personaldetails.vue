@@ -102,6 +102,11 @@
 			// this.userInfo=this.userInfo;
 			// this.userHeader=imgurl + this.userInfo.avatar
 		},
+    watch:{
+		    '$route'(){
+		        this.nickName = this.$store.state.nickname
+        }
+    },
 		components:{
 			headTop,
 		},
