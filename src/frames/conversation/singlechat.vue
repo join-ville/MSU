@@ -1,6 +1,14 @@
 <template>
+
   <div class="chat-box">
-    <header>与{{receiverId}}的会话</header>
+    <header>
+      <section class="goback" @click="goBackThing">
+        <svg fill="#fff">
+          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#back"></use>
+        </svg>
+      </section>
+      与{{receiverId}}的会话
+    </header>
     <div class="msg-box" ref="msg-box">
       <div
         v-for="(i,index) in list"
@@ -37,7 +45,6 @@
             };
         },
         created:function(){
-
                 this.axios({
                     method: 'post',
                     url: this.$store.state.baseurl+'user/getUnreadMsgList',
@@ -48,22 +55,24 @@
                     crossDomain: true
                 }).then(response => {
                     if (response.data.code == 200) {
-                        alert('test' + JSON.stringify(response.data));
                         this.mainList = response.data.data;
+
+                        for(var x=0, length=this.mainList.length; x<length;x++){
+                            this.list=[
+                                ...this.list,
+                                {   senderId:this.mainList[x].sendUserId,
+                                    msg:this.mainList[x].msg,
+                                }
+                            ]
+                        }
+                        alert('test' + JSON.stringify(this.list));
                     }
                 })
                     .catch(error => {
-
                     });
 
-                for(var x=0, length=this.mainList.length; x<length;x++){
-                    this.list=[
-                        ...this.list,
-                        {   senderId:this.mainList[i].senderId,
-                            msg:this.mainList[i].msg,
-                        }
-                    ]
-                }
+
+
         },
         mounted() {
             this.initWebSocket();
@@ -73,9 +82,12 @@
             this.ws.onclose(undefined);
         },
         methods: {
+            // 返回
+            goBackThing(){
+                this.$route.path == '/singlechat' ? this.$router.push('/dialogue') : window.history.go(-1);
+            },
             // 发送聊天信息
             sendText() {
-                alert(this.userId);
                 let _this = this;
                 _this.$refs["sendMsg"].focus();
                 if (!_this.contentText) {
@@ -96,7 +108,7 @@
                         msg:chatMsg.msg,
                     }
                 ];
-                localStorage.setItem('list',JSON.stringify(_this.list));
+
                 let params = {
                     action:'2',
                     chatMsg:chatMsg,
@@ -144,7 +156,7 @@
                                 msg:obj.chatMsg.msg,
                             }
                         ];
-                        localStorage.setItem('list',JSON.stringify(_this.list));
+
                     };
 
                 }
@@ -159,6 +171,7 @@
 </script>
 
 <style lang="scss" scoped>
+  @import "../../style/public";
   .chat-box {
     margin: 0 auto;
     background: #fafafa;
@@ -178,7 +191,15 @@
       font-weight: bold;
       color: white;
       font-size: 1rem;
+      .goback{
+        @include widthHeight(1rem,1rem);
+        svg{
+          @include widthHeight(100%,100%);
+        }
+
+      }
     }
+
     .msg-box {
       position: absolute;
       height: calc(100% - 6.5rem);
