@@ -206,7 +206,12 @@ export default {
         footGuide
     },
     computed: {
-
+        token(){
+          return this.$store.state.token
+        },
+      username(){
+        return this.$store.state.username
+      },
         manageaddress() {
 
             let addresslist = {};
@@ -243,8 +248,8 @@ export default {
           method: 'post',
           url: this.$store.state.baseurl+'friend/viewRequest',
           data: {
-            username: this.$store.state.username,
-            Token:this.$store.state.token,
+            username: localStorage.getItem('username'),
+            Token:localStorage.getItem('token'),
           },
           crossDomain: true
         }).then(body => {
@@ -270,8 +275,8 @@ export default {
           url: this.$store.state.baseurl+'friend/acceptRequest',
           data: {
             sendName:this.RequestName ,
-            acceptName: this.$store.state.username,
-            Token:this.$store.state.token,
+            acceptName: localStorage.getItem('username'),
+            Token:localStorage.getItem('token'),
           },
           crossDomain: true
         }).then(body => {
@@ -299,8 +304,8 @@ export default {
           url: this.$store.state.baseurl+'friend/refuseRequest',
           data: {
             sendName: this.RequestName,
-            acceptName: this.$store.state.username,
-            Token:this.$store.state.token,
+            acceptName: localStorage.getItem('username'),
+            Token:localStorage.getItem('token'),
           },
           crossDomain: true
         }).then(body => {

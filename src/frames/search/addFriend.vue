@@ -62,7 +62,7 @@
             url:this.$store.state.baseurl+'friend/find',
             data: {
               username: this.username,
-              Token:this.$store.state.token,
+              Token:localStorage.getItem('token'),
             },
             crossDomain: true
           }).then(body => {
