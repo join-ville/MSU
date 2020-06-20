@@ -24,7 +24,7 @@
                  style="margin-left: 10px;color: red">
         <span style="color:red;font-size:18px">{{error_img}}</span>
       </v-tooltip>
-
+      <el-button type="primary" @click="info">主要按钮</el-button>
 			<div class="login_botton" @click="loginSuccess">
 				登 录
 			</div>
@@ -64,6 +64,9 @@
 
 		},
 		methods:{
+		  info(){
+        this.$message.success("xx成功！");
+      },
 			inpuMark(){
 				this.inputaccounts ? this.accounts=true : this.accounts=false;
 			},
