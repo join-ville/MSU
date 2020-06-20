@@ -45,6 +45,16 @@
 							发起群聊
 						</section>
 					</router-link>
+          <router-link :to="{path:'/searchGroup'}" tag="li" class="selectpart_li">
+            <section class="selectsvg">
+              <svg fill="#fff">
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#wxspeak"></use>
+              </svg>
+            </section>
+            <section class="selectext">
+              加入群聊
+            </section>
+          </router-link>
 					<router-link to='/addFriend' tag="li" class="selectpart_li">
 						<section class="selectsvg">
 							<svg fill="#fff">

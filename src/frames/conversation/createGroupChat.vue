@@ -34,11 +34,12 @@
             console.log(self.name)
             this.axios({
               method: 'post',
-              url: this.$store.state.baseurl+'createGroupChat',
+              url: this.$store.state.baseurl+'group/createGroup',
               data: {
-                username: this.$store.state.username,
-                Token:this.$store.state.token,
-                groupName:this.name
+                groupName:self.name,
+                username: self.$store.state.username,
+                Token:self.$store.state.token,
+
               },
               crossDomain: true
             })
