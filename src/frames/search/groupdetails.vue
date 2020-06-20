@@ -32,7 +32,8 @@
       </div>
       <div class="sendmessage"><!--  -->
         <section class="send" v-if="this.hasEntered">
-          <router-link :to="{path:'/groupchat'}" class="send">
+          <router-link :to="{path:'/groupchat', query: {groupname: this.groupname, username: this.username}}"
+                       style="cursor: pointer" class="send">
             发送消息
           </router-link>
         </section>
