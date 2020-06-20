@@ -10,6 +10,7 @@
       与{{receiverId}}的会话
     </header>
     <div class="msg-box" ref="msg-box">
+      <div class="crd" @click="chatRecord()">查看更多记录</div>
       <div
         v-for="(i,index) in list"
         :key="index"
@@ -26,8 +27,20 @@
     </div>
     <div class="input-box">
       <input type="text" ref="sendMsg" v-model="contentText" @keyup.enter="sendText()" />
+
+      <section class="emoji">
+        <svg>
+          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#smile"></use>
+        </svg>
+      </section>
+      <section class="photo">
+        <svg fill="#10aeff">
+          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#photo"></use>
+        </svg>
+      </section>
       <div class="btn" :class="{['btn-active']:contentText}" @click="sendText()">发送</div>
-      <div class="crd" @click="chatRecord()">记录</div>
+
+
     </div>
   </div>
 </template>
@@ -42,7 +55,7 @@
                 avatar: '', // 当前用户头像
                 list: [], // 聊天记录的数组
                 mainList: [],//接受返回的数据
-                contentText: "" // input输入的值
+                contentText: "", // input输入的值
             };
         },
         created:function(){
@@ -210,6 +223,12 @@
       width: 100%;
       margin-top: 3rem;
       overflow-y: scroll;
+      .crd {
+        padding: 0.5rem;
+        font-size: 0.7rem;
+        color: #409eff;
+        text-align: center;
+      }
       .msg {
         width: 95%;
         min-height: 2.5rem;
@@ -313,17 +332,8 @@
       .btn-active {
         background: #409eff;
       }
-      .crd {
-        height: 2.3rem;
-        min-width: 4rem;
-        background: #409eff;
-        padding: 0.5rem;
-        font-size: 0.88rem;
-        color: white;
-        text-align: center;
-        border-radius: 0.2rem;
-        margin-left: 0.5rem;
-        transition: 0.5s;
+      svg {
+        @include widthHeight(1.7rem,1.7rem);
       }
     }
   }
