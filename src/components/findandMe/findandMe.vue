@@ -11,8 +11,8 @@
 							</svg>
 						</section>
 						<section class="me_name" v-if="pathUrl">
-							<div>{{userInfo.name}}</div>
-							<div>微信号：{{userInfo.name}}</div>
+							<div>{{nickName}}</div>
+							<div>微信号：{{userName}}</div>
 						</section>
 						<section class="findlist_text" v-else>
 							朋友圈
@@ -124,14 +124,14 @@
 				<div class="alert_affirm" @click="affirmAlert">确认</div>
 			</div>
 		</section>
-	</section>	
+	</section>
 </template>
 
 <script>
 	import {userInfo} from 'src/service/getData'
 	import {imgurl} from 'src/config/env';
 	import {mapState,mapActions,mapMutations} from 'vuex';
-	import {circle} from 'src/service/getData' 
+	import {circle} from 'src/service/getData'
 	export default{
 		data(){
 			return{
@@ -142,16 +142,44 @@
 				gifSrc:'',
 				timer:null,
 				newGetImage:'',			//朋友圈动态第一个头像
-				userHeader:''			//用户头像
+				userHeader:'',			//用户头像
+          userName: '',
+          nickName: ''
 			}
 		},
 		props: ['mepart',],
 		created(){
 
-			this.gifSrc=imgurl+'reminder.gif';
+			  this.gifSrc=imgurl+'reminder.gif';
+        this.axios({
+            method: 'post',
+            url: 'http://106.53.58.194:8888/msu_im/user/home',
+            data: {
+                username: this.$store.state.username,
+                Token:  this.$store.state.token,
+            },
+            crossDomain: true
+        }).then(body => {
+            this.info = body
+
+            var that = this
+            this.userName = body.data.data.username
+            this.nickName = body.data.data.nickname
+
+            this.$store.state.nickname = this.nickName
+            localStorage.setItem('nickname',this.nickName)  // 本地存储更新nickname
+
+            // 错误信息
+            if (this.info.data.code !== 200) {
+                this.$message.error("请求失败")
+            }
+            else{
+                console.log("this.info.data.data.token")
+            }
+        })
 		},
 		beforeDestroy(){
-            clearTimeout(this.timer) 
+            clearTimeout(this.timer)
         },
 		beforeMount(){
 			this.getUserInfo();
@@ -165,8 +193,13 @@
 				}
 			})
 		},
+    watch:{
+        '$route'(){
+            this.nickName = this.$store.state.nickname
+        }
+    },
 		components:{
-			
+
 		},
 		computed:{
 			...mapState([
@@ -202,7 +235,7 @@
 					this.showPart()
 				}else{
 					this.$router.push('/me/collect')
-					
+
 				}
 			},
 			wallet(){//附近的人或钱包
@@ -210,7 +243,7 @@
 					this.showPart()
 				}else{
 					this.$router.push('/me/wallet')
-					
+
 				}
 			},
 			shoppSth(){
@@ -295,7 +328,7 @@
 							@include widthHeight(100%,100%);
 						}
 					}
-					
+
 					.redicon{
 						position: absolute;
 						right:-0.21rem;

@@ -60,10 +60,10 @@
                         // 错误信息
                         if (this.info.data.code !== 200) {
                             console.log(this.info)
-                            alert("请求失败")
+                            this.$message.error("请求失败")
                         }
                         else{
-                            alert("修改成功")
+                            this.$message.success("修改成功")
                         }
 
                         this.$router.go(-1)
