@@ -20,6 +20,7 @@ const createGroupChat = r => require.ensure([], () => r(require('../frames/conve
 const addressbook = r => require.ensure([], () => r(require('../frames/addressbook/addressbook')), 'addressbook')
 const details = r => require.ensure([], () => r(require('../frames/addressbook/details/details')), 'details')
 const more = r => require.ensure([], () => r(require('../frames/addressbook/details/more/more')), 'more')
+const grouplist = r => require.ensure([], () => r(require('../frames/addressbook/grouplist')),'grouplist')
 
 const find = r => require.ensure([], () => r(require('../frames/find/find')), 'find')
 const friendcircle = r => require.ensure([], () => r(require('../frames/find/friendcircle/friendcircle')), 'friendcircle')
@@ -38,7 +39,7 @@ const search = r => require.ensure([], () => r(require('../frames/search/search'
 const addFriend = r => require.ensure([], () => r(require('../frames/search/addFriend')), 'addFriend')
 const searchResult= r => require.ensure([], () => r(require('../frames/search/details')), 'searchResult')
 const searchGroup = r => require.ensure([], () => r(require('../frames/search/searchGroupChat')), 'searchGroup')
-const searchGroupResult = r => require.ensure([], () => r(require('../frames/search/groupdetails')), 'searchGroupDetails')
+const groupDetails = r => require.ensure([], () => r(require('../frames/search/groupdetails')), 'groupDetails')
 
 const newmessage = r => require.ensure([], () => r(require('../frames/me/settings/detailset/newmessage')), 'newmessage')
 const disturbance = r => require.ensure([], () => r(require('../frames/me/settings/detailset/disturbance')), 'disturbance')
@@ -123,7 +124,8 @@ export default[{
     {path: '/searchResult', name:'searchResult',component: searchResult},
     {path: '/addFriend', component: addFriend},	//添加好友
     {path: '/searchGroup', component: searchGroup},
-    {path: '/searchGroupResult', name:'searchGroupResult',component:searchGroupResult},
+    {path: '/grouplist',component: grouplist},
+    {path: '/groupDetails', name:'groupDetails',component:groupDetails},
 		{path: '/me', component: me,
 			children: [
 				{path:'/me/settings',component: settings,//设置

@@ -15,7 +15,7 @@
     </div>
   </section>
   <section>
-    <router-link :to="{path: '/searchGroupResult', query: {groupname: item.groupName, id:item.id, username: item.username}}" v-for="item in searchlist" style="cursor: pointer">
+    <router-link :to="{path: '/groupDetails', query: {groupname: item.groupName, id:item.id, username: item.username, hasEntered: false}}" v-for="item in searchlist" style="cursor: pointer">
       <div>
         {{item.groupName}}
       </div>

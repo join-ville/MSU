@@ -36,7 +36,7 @@
                       拒绝
                     </div>
                   </router-link>
-                    <router-link to=""
+                    <router-link :to="{path:'/grouplist'}"
                                  tag="li"
                                  class="contacts_li">
                         <div class="contacts_img">
@@ -45,7 +45,7 @@
                                      xlink:href="#groupchat"></use>
                             </svg>
                         </div>
-                        <div class="contacts_text">
+                        <div class="contacts_text" >
                             群聊
                         </div>
                     </router-link>
@@ -149,7 +149,6 @@
 <script>
 import headTop from 'src/components/header/head'
 import footGuide from 'src/components/footer/foot'
-//import { contactList } from 'src/service/getData'
 import { animate } from 'src/config/mUtils.js'
 import { mapMutations } from 'vuex'
 export default {

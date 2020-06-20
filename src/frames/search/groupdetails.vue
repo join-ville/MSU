@@ -31,8 +31,24 @@
         </li>
       </div>
       <div class="sendmessage"><!--  -->
-        <section class="send" @click="sendRequest">
+        <section class="send" v-if="this.hasEntered">
+          <router-link :to="{path:'/groupchat'}" class="send">
+            发送消息
+          </router-link>
+        </section>
+        <section class="send" @click="sendRequest" v-else>
           申请入群
+        </section>
+      </div>
+      <div>
+        <section>
+          <span style="cursor:pointer">
+            <div class="cancelgroup"><!--  -->
+            <div class="send" v-on:click="cancelGroup">
+              退出群聊
+            </div>
+          </div>
+          </span>
         </section>
       </div>
     </div>
@@ -42,6 +58,7 @@
 <script>
     import headTop from 'src/components/header/head'
     export default {
+        inject: ['reload'],
         name: "groupdetails",
         components: {
           headTop
@@ -50,13 +67,15 @@
           return {
             groupname:'',
             username:'',
-            id:''
+            id:'',
+            hasEntered: false
           }
         },
         created() {
           this.groupname = this.$route.query.groupname
           this.username = this.$route.query.username
           this.id = this.$route.query.id
+          this.hasEntered = this.$route.query.hasEntered
         },
         methods: {
           sendRequest() {
@@ -73,6 +92,25 @@
             .then(response => {
               if(response.data.data == 200)
                 alert("入群成功")
+            })
+          },
+          cancelGroup() {
+            this.axios({
+              method: 'post',
+              url:this.$store.state.baseurl+'group/deleteGroupUser',
+              data:{
+                  groupName: this.groupname,
+                  username: this.$store.state.username,
+                  Token: this.$store.state.token
+              },
+              crossDomain: true
+            })
+            .then(response => {
+              if(response.data.code == 200)
+              {
+                this.reload()
+                this.$router.push('/grouplist')
+              }
             })
           }
         }
@@ -201,5 +239,21 @@
     line-height:2.0053333333rem;
   }
   }
+  }
+  .cancelgroup{
+    width:14.1653333333rem;
+    margin:0 auto;
+    margin-top:0.8533333333rem;
+    .send{
+      display:block;
+      border-radius:5px;
+      text-align:center;
+      width:14.1226666667rem;
+      border:1px solid #FF0000	;
+      background:	#DC143C;
+      @include sizeColor(0.7253333333rem,#fff);
+      letter-spacing:4px;
+      line-height:2.0053333333rem;
+    }
   }
 </style>
