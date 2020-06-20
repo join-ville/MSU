@@ -6,26 +6,26 @@
 		<transition name="router-show">
 		    <router-view></router-view>
 		</transition>
-	</section>	
+	</section>
 </template>
 
 <script>
 	import headTop from 'src/components/header/head'
 	import findMe from 'src/components/findandMe/findandMe'
 	import footGuide from 'src/components/footer/foot'
-	
+
 	export default{
 		data(){
 			return{
-				
+
 			}
 		},
 		created(){
 
 		},
-		
+
 		mounted(){
-			
+
 		},
 		components:{
 			headTop,
@@ -33,7 +33,7 @@
 			footGuide
 		},
 		computed:{
-			
+
 		},
 		methods:{
 
