@@ -40,7 +40,7 @@ const addFriend = r => require.ensure([], () => r(require('../frames/search/addF
 const searchResult= r => require.ensure([], () => r(require('../frames/search/details')), 'searchResult')
 const searchGroup = r => require.ensure([], () => r(require('../frames/search/searchGroupChat')), 'searchGroup')
 const groupDetails = r => require.ensure([], () => r(require('../frames/search/groupdetails')), 'groupDetails')
-
+const groupMembers = r => require.ensure([], () => r(require('../frames/conversation/groupMembers')), 'groupMembers')
 const newmessage = r => require.ensure([], () => r(require('../frames/me/settings/detailset/newmessage')), 'newmessage')
 const disturbance = r => require.ensure([], () => r(require('../frames/me/settings/detailset/disturbance')), 'disturbance')
 const chat = r => require.ensure([], () => r(require('../frames/me/settings/detailset/chat')), 'chat')
@@ -86,7 +86,13 @@ export default[{
 					component: groupchatmessage,
 				}
 			]
-		},			//群聊
+		},  //群聊
+    {
+      name: 'groupMembers',
+      path: '/groupmembers',
+      component: groupMembers,
+
+    },	//群聊成员
 		{path: '/addressbook',
       component: addressbook, meta:{ keepAlive: false},
 			children: [
