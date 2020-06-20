@@ -79,11 +79,19 @@
             var that = this
             this.userName = body.data.data.username
             this.nickName = body.data.data.nickname
-            this.gender = body.data.data.gender
+            if (body.data.data.gender === 1)  this.gender = 1
+              else this.gender = 0
+            // this.gender = body.data.data.gender
             this.word = body.data.data.userSignature
 
             this.$store.state.nickname = this.nickName
             localStorage.setItem('nickname',this.nickName)  // 本地存储更新nickname
+
+            this.$store.state.gender = this.gender
+            localStorage.setItem('gender',this.gender)  //  本地存储更新gender
+
+            this.$store.state.sign = this.word
+            localStorage.setItem('sign',this.word)  //  本地存储更新signature
 
             // 错误信息
             if (this.info.data.code !== 200) {
@@ -102,6 +110,13 @@
 			// this.userInfo=this.userInfo;
 			// this.userHeader=imgurl + this.userInfo.avatar
 		},
+    watch:{
+		    '$route'(){
+		        this.nickName = this.$store.state.nickname
+            this.gender = this.$store.state.gender
+            this.word = this.$store.state.sign
+        }
+    },
 		components:{
 			headTop,
 		},

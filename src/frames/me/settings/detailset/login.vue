@@ -24,7 +24,6 @@
                  style="margin-left: 10px;color: red">
         <span style="color:red;font-size:18px">{{error_img}}</span>
       </v-tooltip>
-
 			<div class="login_botton" @click="loginSuccess">
 				登 录
 			</div>
@@ -64,6 +63,9 @@
 
 		},
 		methods:{
+		  info(){
+        this.$message.success("xx成功！");
+      },
 			inpuMark(){
 				this.inputaccounts ? this.accounts=true : this.accounts=false;
 			},
@@ -101,13 +103,14 @@
             this.info = body
             // 错误信息
             if (this.info.data.code !== 200) {
-              console.log(this.info)
+              this.$message.error("登录失败");
+              /*console.log(this.info)
               var that = this
               this.password_wrong_show = true
               this.error_img = 'request fail!'
               setTimeout(function () {
                 that.password_wrong_show = false
-              }, 2000)
+              }, 2000)*/
             }
             else{
               console.log(this.info.data.data.token)
@@ -117,17 +120,18 @@
               localStorage.setItem('username',this.inputaccounts)
               localStorage.setItem('token',this.info.data.data.token)
               this.$router.push('/dialogue')
-
+              this.$message.success("登录成功");
             }
           })
 				}
           else {
-          var that = this
+          this.$message.error("请填写账户名及密码");
+          /*var that = this
           this.password_wrong_show = true
           this.error_img = '请填写账户名及密码'
           setTimeout(function () {
             that.password_wrong_show = false
-          }, 2000)
+          }, 2000)*/
         }
 
 			},
