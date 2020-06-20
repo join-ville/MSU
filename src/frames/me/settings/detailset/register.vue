@@ -109,22 +109,24 @@
       RegisterSuccess(){
         if(this.inputaccounts && this.inputcode && this.reinputcode){
           if(this.inputcode !== this.reinputcode){
-            var that = this
+            this.$message.error("两次密码不一致");
+            /*var that = this
             this.password_wrong_show = true
             this.error_img = '两次密码不一致'
             setTimeout(function () {
               that.password_wrong_show = false
-            }, 2000)
+            }, 2000)*/
           }
         else{
             var reg = /^[A-Za-z0-9]{1,30}$/;
             if(!reg.test(this.inputaccounts) || !reg.test(this.inputcode)){
-              var that = this
+              this.$message.error("请填写由字母和数字组成的账户名");
+              /*var that = this
               this.password_wrong_show = true
               this.error_img = '请填写由字母和数字组成的账户名'
               setTimeout(function () {
                 that.password_wrong_show = false
-              }, 2000)
+              }, 2000)*/
             }
             else {
               this.axios({
@@ -140,13 +142,14 @@
                 this.info = body
                 // 错误信息
                 if (this.info.data.code !== 200) {
-                  console.log(this.info)
+                  this.$message.error("注册失败");
+                  /*console.log(this.info)
                   var that = this
                   this.password_wrong_show = true
                   this.error_img = 'request fail!'
                   setTimeout(function () {
                     that.password_wrong_show = false
-                  }, 2000)
+                  }, 2000)*/
                 }
                 else{
                   this.axios({
@@ -162,13 +165,14 @@
                     this.info = body
                     // 错误信息
                     if (this.info.data.code !== 200) {
-                      console.log(this.info)
+                      this.$message.error("登录失败");
+                      /*console.log(this.info)
                       var that = this
                       this.password_wrong_show = true
                       this.error_img = 'request fail!'
                       setTimeout(function () {
                         that.password_wrong_show = false
-                      }, 2000)
+                      }, 2000)*/
                     }
                     else{
                       console.log(this.info.data.token)
@@ -178,7 +182,7 @@
                       localStorage.setItem('username',this.inputaccounts)
                       localStorage.setItem('token',this.info.data.data.token)
                       this.$router.push('/dialogue')
-
+                      this.$message.success("登录成功");
                     }
                   })
                 }
@@ -188,12 +192,13 @@
           }
         }
         else {
-          var that = this
+          this.$message.error("请填写账户名及密码");
+          /*var that = this
           this.password_wrong_show = true
           this.error_img = '请填写账户名及密码'
           setTimeout(function () {
             that.password_wrong_show = false
-          }, 2000)
+          }, 2000)*/
         }
       }
     }

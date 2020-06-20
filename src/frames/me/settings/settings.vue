@@ -26,7 +26,7 @@
 				<!-- <router-link to='/me/settings/help' tag="li">
 					帮助与反馈
 				</router-link> -->
-				<router-link to='/me/settings/login'  @click="logout" tag="li">
+				<router-link to='/me/settings/login'  @click.native="logout" tag="li">
 					退出
 				</router-link>
 			</ul>
@@ -61,6 +61,7 @@
     logout(){
       localStorage.removeItem("username")
       localStorage.removeItem("token")
+      this.$message.success("已退出登录");
     }
 		}
 	}
