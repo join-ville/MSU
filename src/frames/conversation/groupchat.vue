@@ -66,8 +66,8 @@
         data() {
             return {
                 ws: null,
-                userId: this.$route.query.username, // 当前用户ID
-                receiverId:this.$route.query.groupname,//群聊ID
+                userId: this.$route.query.userId, // 当前用户ID
+                receiverId:this.$route.query.receiverId,//群聊ID
                 avatar: '', // 当前用户头像
                 list: [], // 聊天记录的数组
                 mainList: [],//接受返回的数据

@@ -22,11 +22,11 @@
             <!-- 对话列表 -->
             <section class="conversation">
                 <ul>
-                    <router-link v-for="(item,index) in chatList"
+                    <router-link :to = "{path: item.isGroup==1 ? '/groupchat': '/singlechat',
+                                 query:{userId:item.myId, receiverId:item.myFriendId}}"
+                                 v-for="(item,index) in chatList"
                                  :key="index"
-                                 to=" item.isGroup==1 ? '/groupchat':'/singlechat' "
-                                 tag="li"
-                                 @click.native="refreshInfor(item)">
+                                 tag="li">
                         <div class="imgwipe">
                             <i class="redicon_num"
                                v-if="newinfor">
