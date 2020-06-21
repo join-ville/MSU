@@ -22,10 +22,10 @@
             <!-- 对话列表 -->
             <section class="conversation">
                 <ul>
-                    <router-link to="/singlechat"
-                                 tag="li"
-                                 v-for="(item,index) in dialogueList"
+                    <router-link v-for="(item,index) in chatList"
                                  :key="index"
+                                 to=" item.isGroup==1 ? '/groupchat':'/singlechat' "
+                                 tag="li"
                                  @click.native="refreshInfor(item)">
                         <div class="imgwipe">
                             <i class="redicon_num"
@@ -41,11 +41,11 @@
                         </div>
                         <div class="infordetail">
                             <div class="infordetail_top clear">
-                                <span class="left ellipsis">{{item.remarks ? item.remarks : item.petname}}</span>
+                                <span class="left ellipsis">{{item.myFriendId}}</span>
                                 <span class="right">12:07</span>
                             </div>
                             <div class="infordetail_bot ellipsis">
-                                {{item.newmeassage}}
+                                {{item.lastMsg}}
                             </div>
                         </div>
                     </router-link>
@@ -133,7 +133,7 @@ export default {
         return {
             newinfor: false,		//未静音时新消息提醒
             newtext: false,		//静音时消息提醒
-            dialogList: [],
+            chatList: [],
             consumer: false,
             inputaccounts: "",		//帐号
             inputcode: "",			//密码
@@ -143,26 +143,25 @@ export default {
             borderColortwo: false,
             timer: null,
             groupHead: [],  //group chat list
-            dialogueList: [], //single chat list
             consumerthing: false,
         }
     },
-    created() {
-        this.initData()
-        thie.$axios({
+    created: function() {
+        this.initData();
+        this.axios({
           method: 'post',
-          url: this.$store.state.baseurl+'',
+          url: this.$store.state.baseurl+'/user/getLastTenMsg',
           data: {
             username: localStorage.getItem('username'),
-            token: this.$store.state.token
+            Token: this.$store.state.token
           },
           crossDomain: true
         })
         .then(response => {
           if (response.data.code == 200)
           {
-            this.dialogueList = response.data.singleChat
-            this.groupHead = response.data.groupChat
+              this.chatList = response.data.data;
+              alert(JSON.stringify(this.chatList));
           }
         })
     },
