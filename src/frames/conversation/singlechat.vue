@@ -1,6 +1,7 @@
 <template>
 
   <div class="chat-box">
+
     <header>
       <section class="goback" @click="goBackThing">
         <svg fill="#fff">
@@ -9,8 +10,17 @@
       </section>
       与{{receiverId}}的会话
     </header>
+
     <div class="msg-box" ref="msg-box">
       <div class="crd" @click="chatRecord()">查看更多记录</div>
+      <div style="margin-top: 10px;">
+        <VEmojiPicker
+          v-show="showDialog"
+          labelSearch="Search"
+          lang="pt-BR"
+          @select="onSelectEmoji"
+        />
+      </div>
       <div
         v-for="(i,index) in list"
         :key="index"
@@ -25,14 +35,22 @@
         </div>
       </div>
     </div>
+
+
+
     <div class="input-box">
+    <!--
+      <div style="margin-bottom: 500px">
+        <VEmojiPicker
+          v-show="showDialog"
+          labelSearch="Search"
+          lang="pt-BR"
+          @select="onSelectEmoji"
+        />
+      </div>-->
       <input type="text" ref="sendMsg" v-model="contentText" @keyup.enter="sendText()" />
 
-      <section class="emoji">
-        <svg>
-          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#smile"></use>
-        </svg>
-      </section>
+      <button @click="toogleDialogEmoji" style="width: 20px;height: 20px">😃</button>
       <section class="photo">
         <svg fill="#10aeff">
           <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#photo"></use>
@@ -42,10 +60,12 @@
 
 
     </div>
-  </div>
+</div>
+
 </template>
 
 <script>
+  import VEmojiPicker, { emojisDefault, categoriesDefault } from "v-emoji-picker";
     export default {
         data() {
             return {
@@ -56,6 +76,7 @@
                 list: [], // 聊天记录的数组
                 mainList: [],//接受返回的数据
                 contentText: "", // input输入的值
+                showDialog: false
             };
         },
         created:function(){
@@ -91,11 +112,22 @@
         mounted() {
             this.initWebSocket();
         },
+        components:{
+          VEmojiPicker
+        },
         destroyed() {
             // 离开页面时关闭websocket连接
             this.ws.onclose(undefined);
         },
         methods: {
+          toogleDialogEmoji() {
+            this.showDialog = !this.showDialog;
+          },
+          onSelectEmoji(emoji) {
+            this.contentText += emoji.data;
+            // Optional
+            // this.toogleDialogEmoji();
+          },
             // 返回
             goBackThing(){
                 this.$route.path == '/singlechat' ? this.$router.push('/dialogue') : window.history.go(-1);

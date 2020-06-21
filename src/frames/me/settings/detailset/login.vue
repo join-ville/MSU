@@ -24,13 +24,17 @@
                  style="margin-left: 10px;color: red">
         <span style="color:red;font-size:18px">{{error_img}}</span>
       </v-tooltip>
+
 			<div class="login_botton" @click="loginSuccess">
 				登 录
 			</div>
       <div class="login_botton" @click="RegisterSuccess">
         注 册
       </div>
-		</section>
+
+
+
+    </section>
 	</section>
 </template>
 
@@ -48,6 +52,7 @@
 				borderColortwo: false,
         password_wrong_show: false,
         error_img: '',
+        comment:'',
 			}
 		},
 		created(){
@@ -63,7 +68,8 @@
 
 		},
 		methods:{
-		  info(){
+
+      info(){
         this.$message.success("xx成功！");
       },
 			inpuMark(){
