@@ -3,6 +3,7 @@ import App from '../App'
 import changename from "../frames/me/personaldetails/change/changename"
 import changesex from "../frames/me/personaldetails/change/changesex"
 import changeword from "../frames/me/personaldetails/change/changeword"
+import writeFC from "../frames/find/friendcircle/writeFC";
 
 import upload from "../frames/upload/upload";
 
@@ -120,6 +121,10 @@ export default[{
 					path:'/find/friendcircle',
 					component:friendcircle, //朋友圈
 				},
+        {
+          path:'/find/writeFC',
+          component:writeFC,  //写朋友圈
+        },
 				{
 					path:'/find/miniapps',
 					component:miniapps, //小程序

@@ -2,7 +2,8 @@
     <section class="child_page">
         <head-top crossover="朋友圈"
                   clickrefresh="friendcicle"
-                  @refreshPage="freshPage"></head-top>
+                  @refreshPage="freshPage"
+                  newpost="true"></head-top>
         <section class="friend_wipe"
                  ref="friend">
             <section class="friend">
@@ -19,7 +20,7 @@
                     <div class="themetext"
                          :class="{shoowimg : imagestatus}">轻触更换主题照片</div>
                     <div class="personImg">
-                        <div class="personame">{{userInfo.name}}</div>
+                        <div class="personame">{{userName}}</div>
                         <div class="headimg"
                              @click="personInfor">
                             <img :src="userHeader"
@@ -43,17 +44,18 @@
                 <div class="condition">
                     <ul>
                         <li class="condition_li"
-                            v-for="(item,index) in circleData"
-                            :key="index">
+                            v-for="item in this.Data">
                             <div class="condition_left">
-                                <img :src="item.headurl"
+                                <img :src="item.img"
                                      alt="">
                             </div>
                             <div class="condition_right">
-                                <h1>{{item.remarks ? item.remarks : item.petname}}</h1>
+<!--                                <h1>{{item.remarks ? item.remarks : item.petname}}</h1>-->
+                                <h1>{{item.username}}</h1>
                                 <div class="publishtext">
-                                    {{item.statements}}
+                                    {{item.text}}
                                 </div>
+                              <!--
                                 <div class="publishimg clear"
                                      v-show="item.postimage.length>0">
                                     <img alt=""
@@ -62,12 +64,13 @@
                                          :src="value"
                                          :class="{releaseimg : item.postimage.length >= 2 ? true : false}" />
                                 </div>
+                                -->
                                 <div class="commentbutton">
                                     <div class="button_left clear">
                                         <span>1小时前</span>
-                                        <span v-if=" userInfo.wxid == item.wxid ? true : false">删除</span>
+                                        <span v-if=" item.username == userName ? true : false" @click="deleteMoment(item.id)">删除</span>
                                     </div>
-                                    <div class="button_right">
+                                    <!--<div class="button_right">
                                         <svg class="button_svg"
                                              @click="showDiscuss(item)">
                                             <use xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -92,11 +95,11 @@
                                                 <span>评论</span>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div>-->
 
                                 </div>
 
-                                <div class="retext"
+                            <!--    <div class="retext"
                                      v-show="item.like.length >0 || item.comment.length > 0">
                                     <svg class="retext_trigon"
                                          fill="#efefef">
@@ -124,6 +127,7 @@
                                         </ul>
                                     </div>
                                 </div>
+                              -->
                             </div>
 
                         </li>
@@ -175,12 +179,39 @@ export default {
             criticismstate: false,	//评论显隐
             itemlist: {},			//点击当前的li
             userInfoData: {},			//用户信息
-            userHeader: ''			//用户头像
+            userHeader: '',			//用户头像
 
+            userName: this.$store.state.username,
+            Data: [],
         }
     },
     created() {
+        this.axios({
+            method: 'post',
+            url: 'http://106.53.58.194:8888/msu_im/moment/getMyAndMyFriendMoments',
+            data: {
+                username: this.$store.state.username,
+                Token:  this.$store.state.token,
+            },
+            crossDomain: true
+        }).then(body => {
+            console.log(body.data)
+            this.Data = body.data.data
 
+            var that = this
+
+
+            // 错误信息
+            if (body.data.code !== 200) {
+                setTimeout(function () {
+
+                }, 2000)
+            }
+            else{
+                console.log("success")
+                console.log(this.Data)
+            }
+        })
     },
     beforeDestroy() {
         clearTimeout(this.timer);
@@ -304,6 +335,32 @@ export default {
                 this.changeinput = false;
             }
 
+        },
+        deleteMoment(adj) {
+            this.axios({
+                method: 'post',
+                url: 'http://106.53.58.194:8888/msu_im/moment/deleteMyMoment',
+                data: {
+                    username: this.$store.state.username,
+                    id: adj,
+                    Token:  this.$store.state.token,
+                },
+                crossDomain: true
+            }).then(body => {
+                console.log(body.data)
+                this.Data = body.data.data
+
+                var that = this
+
+                // 错误信息
+                if (body.data.code !== 200) {
+                    this.$message.error("请求失败")
+                }
+                else{
+                    this.$message.success("删除成功！")
+                    this.$router.go(-1)
+                }
+            })
         }
     }
 }
@@ -331,8 +388,8 @@ export default {
     width: 100%;
     padding-bottom: 1rem;
     background-color: #f8f8f8;
-    overflow: scroll;
-    -webkit-overflow-scrolling: touch;
+    overflow: auto;
+    /*-webkit-overflow-scrolling: touch;*/
     .friend {
         padding-top: 2.06933rem;
         background-color: #f8f8f8;

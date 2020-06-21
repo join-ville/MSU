@@ -30,6 +30,11 @@
 			    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#add"></use>
 			</svg>
 		</section>
+    <section class="addPart" v-if="newpost" @click="newPost">
+      <svg class="icon-search">
+        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#add"></use>
+      </svg>
+    </section>
 		<!-- 下拉框 -->
 		<section class="selectpart" v-show="addthing">
 			<div class="cover" @click="controlhide"></div>
@@ -139,7 +144,7 @@
         activeIndex2: '1'
 			}
 		},
-		props: ['logoPart', 'crossover', 'searchPart', 'add', 'person', "search", "clickrefresh"],
+		props: ['logoPart', 'crossover', 'searchPart', 'add', 'person', "search", "clickrefresh", "newpost"],
 		created(){
 
 		},
@@ -176,7 +181,10 @@
 			},
 			refreshPage(){//点击头部刷新页面
 				this.$emit('refreshPage');
-			}
+			},
+      newPost(){
+		      this.$router.push('/find/writeFC')
+      }
 		}
 	}
 </script>
