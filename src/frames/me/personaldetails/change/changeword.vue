@@ -37,10 +37,10 @@
         methods:{
             submit(){
                 if (this.tempText == this.text) {
-                    alert("个性签名未改变！")
+                    this.$message.error("个性签名未改变！")
                 }
                 else if (this.tempText.length > 60) {
-                    alert("请使用60个字符以内的个性签名！")
+                    this.$message.error("请使用60个字符以内的个性签名！")
                 }
                 else {
                     this.axios({
@@ -64,10 +64,11 @@
                         // 错误信息
                         if (this.info.data.code !== 200) {
                             console.log(this.info)
-                            alert("请求失败")
+                            this.$message.error("请求失败")
                         }
                         else{
                             console.log("this.info.data.data.token")
+                            this.$message.success("修改成功！")
                             this.$router.go(-1)
                         }
                     })

@@ -44,10 +44,10 @@
             submit(){
                 // alert(this.tempName);
                 if (this.tempName == this.name) {
-                    alert("昵称未改变！")
+                    this.$message.error("昵称未改变！")
                 }
                 else if (this.tempName.length > 20) {
-                    alert("请使用20个字符以内的昵称！")
+                    this.$message.error("请使用20个字符以内的昵称！")
                 }
                 else {
                     this.axios({
@@ -73,10 +73,11 @@
                         // 错误信息
                         if (this.info.data.code !== 200) {
                             console.log(this.info)
-                            alert("请求失败")
+                            this.$message.error("请求失败")
                         }
                         else{
                             console.log("this.info.data.data.token")
+                            this.$message.success("修改成功！")
                             this.$router.go(-1)
                         }
                     })
