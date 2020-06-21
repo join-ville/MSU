@@ -65,6 +65,7 @@
                     data: {
                         sendName:this.userId,
                         acceptName:this.receiverId,
+                        Token:this.$store.state.token
                     },
                     crossDomain: true
                 }).then(response => {
@@ -163,10 +164,10 @@
                     };
                     ws.onmessage = function(e) {
                         //接收服务器返回的数据
+                        console.log("接受: "+e.data);
+                        const obj = JSON.parse(e.data);
+                        console.log("接受: "+obj);
 
-                        const data = JSON.parse(e.data);
-                        const obj = JSON.parse(data);
-                        console.log("接受: "+data);
                         _this.list = [
                             ..._this.list,
                             {   senderId:obj.chatMsg.senderId,
