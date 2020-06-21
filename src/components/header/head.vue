@@ -100,6 +100,33 @@
 		</section>
 		<slot name='person'></slot>
 	</header>
+<!--  <section>-->
+
+<!--    <div class="line"></div>-->
+<!--    <el-menu-->
+<!--      :default-active="activeIndex2"-->
+<!--      class="el-menu-demo"-->
+<!--      mode="horizontal"-->
+<!--      @select="handleSelect"-->
+<!--      background-color="#409eff"-->
+<!--      text-color="#fff"-->
+<!--      active-text-color="#ffd04b">-->
+<!--      <el-menu-item index="1">MSU</el-menu-item>-->
+
+<!--      <el-submenu index="2" style="float: right">-->
+<!--        <template slot="title">我的工作台</template>-->
+<!--        <el-menu-item index="2-1" v-on:click="gotoCreateGroup">发起群聊</el-menu-item>-->
+<!--        <el-menu-item index="2-2" v-on:click="gotoJoinGroup">加入群聊</el-menu-item>-->
+<!--        <el-menu-item index="2-3" v-on:click="gotoAddFriend">添加朋友</el-menu-item>-->
+<!--        <el-submenu index="2-4">-->
+<!--          <template slot="title">选项4</template>-->
+<!--          <el-menu-item index="2-4-1">选项1</el-menu-item>-->
+<!--          <el-menu-item index="2-4-2">选项2</el-menu-item>-->
+<!--          <el-menu-item index="2-4-3">选项3</el-menu-item>-->
+<!--        </el-submenu>-->
+<!--      </el-submenu>-->
+<!--    </el-menu>-->
+<!--  </section>-->
 </template>
 
 <script>
@@ -108,7 +135,8 @@
 		data(){
 			return{
 				addthing:false,
-
+        activeIndex1: '1',
+        activeIndex2: '1'
 			}
 		},
 		props: ['logoPart', 'crossover', 'searchPart', 'add', 'person', "search", "clickrefresh"],
@@ -125,6 +153,18 @@
 
 		},
 		methods:{
+		  gotoCreateGroup() {
+		    this.$router.push('/createGroupChat')
+      },
+      gotoJoinGroup() {
+        this.$router.push('/searchGroup')
+      },
+      gotoAddFriend() {
+        this.$router.push('/addFriend')
+      },
+      handleSelect(key, keyPath) {
+        console.log(key, keyPath);
+      },
 			controlShow(){
 				this.addthing=true;
 			},
