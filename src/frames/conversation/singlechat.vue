@@ -1,6 +1,7 @@
 <template>
 
   <div class="chat-box">
+
     <header>
       <section class="goback" @click="goBackThing">
         <svg fill="#fff">
@@ -9,8 +10,17 @@
       </section>
       与{{receiverId}}的会话
     </header>
+
     <div class="msg-box" ref="msg-box">
       <div class="crd" @click="chatRecord()">查看更多记录</div>
+      <div style="margin-top: 10px;">
+        <VEmojiPicker
+          v-show="showDialog"
+          labelSearch="Search"
+          lang="pt-BR"
+          @select="onSelectEmoji"
+        />
+      </div>
       <div
         v-for="(i,index) in list"
         :key="index"
@@ -26,14 +36,7 @@
       </div>
     </div>
 
-    <div style="margin-top: 150px">
-      <VEmojiPicker
-        v-show="showDialog"
-        labelSearch="Search"
-        lang="pt-BR"
-        @select="onSelectEmoji"
-      />
-    </div>
+
 
     <div class="input-box">
     <!--
