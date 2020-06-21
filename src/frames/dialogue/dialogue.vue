@@ -42,39 +42,10 @@
                         <div class="infordetail">
                             <div class="infordetail_top clear">
                                 <span class="left ellipsis">{{item.myFriendId}}</span>
-                                <span class="right">12:07</span>
+                                <span class="right">{{item.time}}</span>
                             </div>
                             <div class="infordetail_bot ellipsis">
                                 {{item.lastMsg}}
-                            </div>
-                        </div>
-                    </router-link>
-                </ul>
-            </section>
-            <!-- 群聊 -->
-            <section class="conversation">
-                <ul>
-                    <router-link to="/groupchat"
-                                 tag="li">
-                        <div class="imgwipe">
-                            <i class="redicon_num"
-                               v-if="newinfor">1</i>
-                            <i class="redicon"
-                               v-if="newtext"></i>
-                            <div class="imgstyle imgstyletwo">
-                                <img :src="item.avatar"
-                                     alt=""
-                                     v-for="(item,index) in groupHead"
-                                     :key="index">
-                            </div>
-                        </div>
-                        <div class="infordetail">
-                            <div class="infordetail_top clear">
-                                <span class="left ellipsis">群聊</span>
-                                <span class="right">12:07</span>
-                            </div>
-                            <div class="infordetail_bot ellipsis">
-                                请同学们文明交流~~~
                             </div>
                         </div>
                     </router-link>

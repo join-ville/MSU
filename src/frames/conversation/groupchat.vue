@@ -81,6 +81,7 @@
                 data: {
                     sendName:this.userId,
                     acceptName:this.receiverId,
+                    Token:this.$store.state.token
                 },
                 crossDomain: true
             }).then(response => {
