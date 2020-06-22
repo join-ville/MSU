@@ -151,14 +151,6 @@
                     msgId:''
                 };
 
-
-                _this.list = [
-                    ..._this.list,
-                    {   senderId:chatMsg.senderId,
-                        msg:chatMsg.msg,
-                    }
-                ];
-
                 let params = {
                     action:'2',
                     chatMsg:chatMsg,
@@ -206,8 +198,8 @@
 
                         _this.list = [
                             ..._this.list,
-                            {   senderId:obj.chatMsg.senderId,
-                                msg:obj.chatMsg.msg,
+                            {   senderId:obj.senderId,
+                                msg:obj.msg,
                             }
                         ];
 
