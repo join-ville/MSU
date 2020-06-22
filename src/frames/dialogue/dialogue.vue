@@ -35,7 +35,7 @@
                             <i class="redicon"
                                v-if="newtext"></i>
                             <div class="imgstyle">
-                                <img :src="item.headurl"
+                                <img :src="item.myFriendImage"
                                      alt="">
                             </div>
                         </div>
@@ -132,7 +132,8 @@ export default {
           if (response.data.code == 200)
           {
               this.chatList = response.data.data;
-              alert(JSON.stringify(this.chatList));
+              // alert(JSON.stringify(this.chatList));
+              console.log(this.chatList)
           }
         })
     },
@@ -396,7 +397,7 @@ export default {
                             background: #dddbdb;
                             img {
                                 width: 10%;
-                                height: auto;
+                                height: 100%;
                                 border: 0;
                                 flex-grow: 2;
                             }
