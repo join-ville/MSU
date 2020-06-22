@@ -50,7 +50,11 @@
       </div>-->
       <input type="text" ref="sendMsg" v-model="contentText" @keyup.enter="sendText()" />
 
-      <button @click="toogleDialogEmoji" style="width: 20px;height: 20px">😃</button>
+      <section class="emoji">
+        <svg @click="toogleDialogEmoji">
+          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#smile"></use>
+        </svg>
+      </section>
       <section class="photo">
         <svg fill="#10aeff">
           <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#photo"></use>
