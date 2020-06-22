@@ -106,7 +106,6 @@
                                 }
                             ]
                         }
-                        alert('test' + JSON.stringify(this.list));
                     }
                 })
                     .catch(error => {

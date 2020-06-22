@@ -28,7 +28,7 @@
         :style="i.senderId == userId?'flex-direction:row-reverse':''"
       >
         <div class="user-head">
-          <img :src="i.avatar" height="30" width="30" :title="i.username">
+          <img :src="i.avatar" height="55" width="55" :title="i.username">
         </div>
         <div class="user-msg">
           <span :style="i.senderId == userId?' float: right;':''" :class="i.senderId == userId?'right':'left'">{{i.msg}}</span>
@@ -85,55 +85,53 @@
             };
         },
         created:function(){
-           /* this.axios({
+            this.axios({
                 method:'post',
                 url: this.$store.state.baseurl+'user/getMemberList',
                 data:{
-                    sendName:this.userId,
-                    acceptName:this.receiverId,
-                    Token:this.$store.state.token
+                    username:this.userId,
+                    groupName:this.receiverId,
                 },
                 crossDomain: true
             }).then(response => {
                 if (response.data.code == 200) {
                     this.image= response.data.data;
-                    alert('test' + JSON.stringify(this.avatar));
-                }
-            })
-                .catch(error => {
-                });*/
-            this.axios({
-                method: 'post',
-                url: this.$store.state.baseurl+'group/getFiveGroupMsg',
-                data: {
-                    username:this.userId,
-                    groupName:this.receiverId,
-                    Token:this.$store.state.token
-                },
-                crossDomain: true
-            }).then(response => {
-                if (response.data.code == 200) {
-                    this.mainList = response.data.data;
-                    for(var x=this.mainList.length-1; x>-1;x--){
-                        /*for(var y=this.image.length-1; y>-1;y--){
-                            if(this.image[y].senderId==this.mainList[x].sendUserId){
-                                this.avatar=this.image[y].avatar;
-                                break;
+                    this.axios({
+                        method: 'post',
+                        url: this.$store.state.baseurl+'group/getFiveGroupMsg',
+                        data: {
+                            username:this.userId,
+                            groupName:this.receiverId,
+                            Token:this.$store.state.token
+                        },
+                        crossDomain: true
+                    }).then(response => {
+                        if (response.data.code == 200) {
+                            this.mainList = response.data.data;
+                            for(var x=this.mainList.length-1; x>-1;x--){
+                                for(var y=this.image.length-1; y>-1;y--){
+                                    if(this.image[y].username==this.mainList[x].sendUserId){
+                                        this.avatar=this.image[y].image;
+                                        break;
+                                    }
+                                }
+                                this.list=[
+                                    ...this.list,
+                                    {   senderId:this.mainList[x].sendUserId,
+                                        msg:this.mainList[x].msg,
+                                        avatar:this.avatar,
+                                    }
+                                ]
                             }
-                        }*/
-                        this.list=[
-                            ...this.list,
-                            {   senderId:this.mainList[x].sendUserId,
-                                msg:this.mainList[x].msg,
-                               // avatar:this.avatar,
-                            }
-                        ]
-                    }
-                    alert('test' + JSON.stringify(this.list));
+                        }
+                    })
+                        .catch(error => {
+                        });
                 }
             })
                 .catch(error => {
                 });
+
 
 
 
@@ -190,7 +188,7 @@
             },
             // 聊天记录
             chatRecord(){
-                this.$router.push({ path: '/groupChatRecord', query: { userId:this.userId,receiverId:this.receiverId}});
+                this.$router.push({ path: '/groupChatRecord', query: { userId:this.userId,receiverId:this.receiverId,image:this.image}});
             },
             // 进入页面创建websocket连接
             initWebSocket() {
@@ -220,17 +218,17 @@
                         console.log("接受: "+e.data);
                         const obj = JSON.parse(e.data);
                         console.log("接受: "+obj);
-                        /*for(var y=this.image.length-1; y>-1;y--){
-                            if(this.image[y].senderId==obj.senderId){
-                                this.avatar=this.image[y].avatar;
+                        for(var y=_this.image.length-1; y>-1;y--){
+                            if(_this.image[y].username==obj.senderId){
+                                _this.avatar=_this.image[y].image;
                                 break;
                             }
-                        }*/
+                        }
                         _this.list = [
                             ..._this.list,
                             {   senderId:obj.senderId,
                                 msg:obj.msg,
-                                //avatar:this.avatar,
+                                avatar:_this.avatar,
                             }
                         ];
 

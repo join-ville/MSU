@@ -17,7 +17,7 @@
         :style="i.senderId == userId?'flex-direction:row-reverse':''"
       >
         <div class="user-head">
-          <img :src="i.avator" alt="" height="55" width="55" :title="i.senderId">
+          <img :src="i.avatar" alt="" height="55" width="55" :title="i.senderId">
         </div>
         <div class="user-msg">
           <span :style="i.senderId == userId?' float: right;':''" :class="i.senderId == userId?'right':'left'">{{i.msg}}</span>
@@ -34,7 +34,8 @@
                 ws: null,
                 userId: this.$route.query.userId, // 当前用户ID
                 receiverId:this.$route.query.receiverId,//对方ID
-                image:[],
+                image:this.$route.query.image,
+                avatar:'',
                 list: [], // 聊天记录的数组
                 mainList: [],//接受返回的数据
                 contentText: "" // input输入的值
@@ -53,15 +54,24 @@
             }).then(response => {
                 if (response.data.code == 200) {
                     this.mainList = response.data.data;
+
                     for(var x=this.mainList.length-1; x>-1;x--){
+                        for(var y=this.image.length-1; y>-1;y--){
+                            if(this.image[y].username==this.mainList[x].sendUserId){
+                                this.avatar=this.image[y].image;
+                                break;
+                            }
+                        }
                         this.list=[
                             ...this.list,
                             {   senderId:this.mainList[x].sendUserId,
                                 msg:this.mainList[x].msg,
+                                avatar:this.avatar,
                             }
                         ]
+
                     }
-                    alert('test' + JSON.stringify(this.list));
+                    alert(JSON.stringify(this.list));
                 }
             })
                 .catch(error => {
@@ -71,57 +81,17 @@
 
         },
         mounted() {
-            this.initWebSocket();
         },
         destroyed() {
             // 离开页面时关闭websocket连接
-            this.ws.onclose(undefined);
+
         },
         methods: {
             // 返回
             goBackThing(){
                 this.$route.path == '/singlechat' ? this.$router.push('/dialogue') : window.history.go(-1);
             },
-            // 发送聊天信息
-            initWebSocket() {
-                let _this = this;
 
-                // 判断页面有没有存在websocket连接
-                if (window.WebSocket) {
-
-                    /*var serverHot =  window.location.hostname;
-                    alert(serverHot);
-                    let sip = '房间号'
-                    // 填写本地IP地址 此处的 :9101端口号 要与后端配置的一致！*/
-                    var url = 'ws://' + '106.53.58.194:9999/ws';//+ '/groupChat/' + sip + '/' + this.userId; // `ws://127.0.0.1/9101/groupChat/10086/聊天室`
-                    let ws = new WebSocket(url);
-                    _this.ws = ws;
-                    ws.onopen = function() {
-                        console.log("服务器连接成功: " + url);
-                    };
-                    ws.onclose = function() {
-                        console.log("服务器连接关闭: " + url);
-                    };
-                    ws.onerror = function() {
-                        console.log("服务器连接出错: " + url);
-                    };
-                    ws.onmessage = function(e) {
-                        //接收服务器返回的数据
-
-                        const data = JSON.parse(e.data);
-                        const obj = JSON.parse(data);
-                        console.log("接受: "+data);
-                        _this.list = [
-                            ..._this.list,
-                            {   senderId:obj.chatMsg.senderId,
-                                msg:obj.chatMsg.msg,
-                            }
-                        ];
-
-                    };
-
-                }
-            },
             // 滚动条到底部
             scrollBottm() {
                 let el = this.$refs["msg-box"];
