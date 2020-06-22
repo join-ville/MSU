@@ -11,12 +11,12 @@
 			</section>
 			<section class="wall">|</section>
 			<slot name='searchpart'></slot>
-			<!-- <slot name='clickrefresh' ></slot>-->
+			<!-- <slot name='clickrefresh' ></slot>
 			<section class="covers_name" v-if="$route.path.indexOf('search') == -1" @click="refreshPage">
 				<span class="ellipsis">
 					{{crossover}}
 				</span>
-			</section>
+			</section>-->
 		</section>
 		<section class="searchPart" v-if="searchPart">
 			<router-link to='/search' class="searchlink">
