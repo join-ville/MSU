@@ -28,7 +28,7 @@
         :style="i.senderId == userId?'flex-direction:row-reverse':''"
       >
         <div class="user-head">
-          <img :src="i.avatar" height="30" width="30" :title="i.username">
+          <img :src="i.avator" alt="" height="55" width="55" :title="i.senderId">
         </div>
         <div class="user-msg">
           <span :style="i.senderId == userId?' float: right;':''" :class="i.senderId == userId?'right':'left'">{{i.msg}}</span>
@@ -50,7 +50,11 @@
       </div>-->
       <input type="text" ref="sendMsg" v-model="contentText" @keyup.enter="sendText()" />
 
-      <button @click="toogleDialogEmoji" style="width: 20px;height: 20px">😃</button>
+      <section class="emoji">
+        <svg @click="toogleDialogEmoji">
+          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#smile"></use>
+        </svg>
+      </section>
       <section class="photo">
         <svg fill="#10aeff">
           <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#photo"></use>
@@ -72,7 +76,8 @@
                 ws: null,
                 userId: this.$route.query.userId, // 当前用户ID
                 receiverId:this.$route.query.receiverId,//对方ID
-                avatar: '', // 当前用户头像
+                userImage:this.$store.state.head,
+                receiverImage: this.$route.query.receiverImage, // 当前用户头像
                 list: [], // 聊天记录的数组
                 mainList: [],//接受返回的数据
                 contentText: "", // input输入的值
@@ -97,6 +102,7 @@
                                 ...this.list,
                                 {   senderId:this.mainList[x].sendUserId,
                                     msg:this.mainList[x].msg,
+                                    avator:this.mainList[x].sendUserId==this.userId?this.userImage:this.receiverImage,
                                 }
                             ]
                         }
@@ -152,6 +158,7 @@
                     ..._this.list,
                     {   senderId:chatMsg.senderId,
                         msg:chatMsg.msg,
+                        avator:chatMsg.senderId==this.userId?this.userImage:this.receiverImage,
                     }
                 ];
 
@@ -169,7 +176,7 @@
             },
             // 聊天记录
             chatRecord(){
-                this.$router.push({ path: '/chatRecord', query: { userId:this.userId,receiverId:this.receiverId}});
+                this.$router.push({ path: '/chatRecord', query: { userId:this.userId,receiverId:this.receiverId,receiverImage:this.receiverImage}});
             },
             // 进入页面创建websocket连接
             initWebSocket() {
@@ -204,6 +211,7 @@
                             ..._this.list,
                             {   senderId:obj.chatMsg.senderId,
                                 msg:obj.chatMsg.msg,
+                                avator:obj.chatMsg.senderId==this.userId?this.userImage:this.receiverImage,
                             }
                         ];
 

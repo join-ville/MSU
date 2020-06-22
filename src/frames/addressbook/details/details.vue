@@ -111,7 +111,7 @@
 			]),
 			enterdDialogue(){
 				this.SAVE_DIALOGUE(this.infor);
-				this.$router.push({ path: '/singlechat', query: { userId:this.$store.state.username,receiverId:this.username}});
+				this.$router.push({ path: '/singlechat', query: { userId:this.$store.state.username,receiverId:this.username,receiverImage:this.avatar}});
 
 			},
       deleteFriend(){
