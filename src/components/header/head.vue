@@ -1,7 +1,7 @@
 <template>
 	<header>
 		<section class="logoPart" v-if="logoPart">
-			微信
+			MSU
 		</section>
 		<section class="logoPart" v-if="crossover">
 			<section class="goback" @click="goBackThing">

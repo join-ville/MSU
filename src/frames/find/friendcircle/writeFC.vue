@@ -2,10 +2,21 @@
   <section class="child_page">
     <head-top crossover="写动态"></head-top>
     <section class="changename">
+      <div>
+        <img width="300px" id="img1" :src="img">
+      </div>
       <ul>
         <li>
-          <textarea v-model="pyq"></textarea>
-          <button v-on:click="submit()" style="background-color: black;color:white">完成</button>
+          <input type="file" id="file1" class=uploadbtn accept="image/*" @change="imgChange($event)">
+        </li>
+      </ul>
+      <ul>
+        <li>
+          <textarea v-model="pyq" cols="30" rows="15" style="resize: none"></textarea>
+
+        </li>
+        <li>
+          <button v-on:click="submit()">完成</button>
         </li>
       </ul>
     </section>
@@ -18,6 +29,7 @@
         data(){
             return{
                 pyq: '',
+                img: ''
             }
         },
         created(){
@@ -33,8 +45,24 @@
 
         },
         methods:{
+            imgChange(e){
+                var _this = this
+                var file = e.target.files[0];
+                var filesize = file.size;
+                var filename = file.name;
+                var reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = function (e) {
+                    var imgcode = e.target.result;
+                    _this.img = imgcode;
+                    console.log(_this.img);
+                }
+            },
             submit(){
-                if (this.pyq.length > 150) {
+                if (!this.img && !this.pyq) {
+                    this.$message.error("请至少包含图片或文字！")
+                }
+                else if (this.pyq.length > 150) {
                     this.$message.error("限制150字符以内！")
                 }
                 else {
@@ -44,7 +72,7 @@
                         data: {
                             username: this.$store.state.username,
                             text: this.pyq,
-                            //
+                            image: this.img,
                             Token:  this.$store.state.token,
                         },
                         crossDomain: true
@@ -96,12 +124,6 @@
         @include sizeColor(0.64rem,#333);
         @include justify;
         align-items:center;
-        .push-button{
-
-        }
-        .voice-music{
-          @include sizeColor(0.512rem,#9c9c9c);
-        }
       }
       li:last-child{
         border:0;

@@ -3,7 +3,7 @@
     <head-top crossover="设置头像"></head-top>
     <section class="changename">
       <div>
-        <img :src="avatar" alt="" v-if="!avatarUrl">
+        <img :src="avatar" alt="" v-if="!avatarUrl" width="300px">
         <img width="300px" id="img1" :src="avatarUrl">
       </div>
       <ul>
@@ -21,8 +21,6 @@
         name: "changeAvatar",
         data(){
             return{
-                tempText: '',
-                text: '',
                 avatar: this.$store.state.head,
                 avatarUrl: ''
             }
@@ -31,8 +29,7 @@
 
         },
         mounted(){
-            this.tempText = this.$store.state.sign
-            this.text = this.tempText
+
         },
         components:{
             headTop,

@@ -23,7 +23,7 @@
                         <div class="personame">{{userName}}</div>
                         <div class="headimg"
                              @click="personInfor">
-                            <img :src="userHeader"
+                            <img :src="userAvatar"
                                  alt="">
                         </div>
                     </div>
@@ -46,7 +46,7 @@
                         <li class="condition_li"
                             v-for="item in this.Data">
                             <div class="condition_left">
-                                <img :src="item.img"
+                                <img :src="item.userImage"
                                      alt="">
                             </div>
                             <div class="condition_right">
@@ -54,6 +54,11 @@
                                 <h1>{{item.username}}</h1>
                                 <div class="publishtext">
                                     {{item.text}}
+                                </div>
+                                <div>
+                                  <img :src="item.image"
+                                       alt=""
+                                       width="300px">
                                 </div>
                               <!--
                                 <div class="publishimg clear"
@@ -181,6 +186,7 @@ export default {
             userInfoData: {},			//用户信息
             userHeader: '',			//用户头像
 
+            userAvatar: this.$store.state.head,
             userName: this.$store.state.username,
             Data: [],
         }
@@ -195,7 +201,7 @@ export default {
             },
             crossDomain: true
         }).then(body => {
-            console.log(body.data)
+            // console.log(body.data)
             this.Data = body.data.data
 
             var that = this

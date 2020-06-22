@@ -4,8 +4,8 @@
     <section class="changename">
       <ul>
         <li>
-          <input type="text" v-model="tempName">
-          <button v-on:click="submit(this)" style="background-color: black;color:white">完成</button>
+          <input type="text" v-model="tempName" maxlength="15" placeholder="15字以内">
+          <button v-on:click="submit(this)">完成</button>
         </li>
       </ul>
     </section>

@@ -12,7 +12,7 @@
 					<span>{{nickName}}</span>
 				</div>
 				<div class="privacy_child">
-					<span>微信号</span>
+					<span>MSU</span>
 					<span>{{userName}}</span>
 				</div>
 				<div class="privacy_child">

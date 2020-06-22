@@ -12,7 +12,7 @@
 						</section>
 						<section class="me_name" v-if="pathUrl">
 							<div>{{nickName}}</div>
-							<div>微信号：{{userName}}</div>
+							<div>MSU：{{userName}}</div>
 						</section>
 						<section class="findlist_text" v-else>
 							朋友圈
