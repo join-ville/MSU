@@ -3,23 +3,34 @@
     <head-top crossover="true" search="true">
       <section slot="searchpart">
         <section class="searchpart">
+          <div class="searchpart_svg">
+            <svg fill="#fff">
+              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#search"></use>
+            </svg>
+          </div>
           <div class="searchpart_input">
             <input type="text" :placeholder="reminder" v-model="groupname"/>
           </div>
         </section>
       </section>
     </head-top>
-  <section class="search">
+  <section class="search" v-if="show">
     <div class="login_botton" @click="find">
       搜索
     </div>
   </section>
-  <section>
-    <router-link :to="{path: '/groupDetails', query: {groupname: item.groupName, id:item.id, username: item.username, hasEntered: false}}" v-for="item in searchlist" style="cursor: pointer">
-      <div>
-        {{item.groupName}}
-      </div>
-    </router-link>
+  <section class="changename" v-if="!show">
+    <ul>群名</ul>
+    <ul>
+        <router-link :to="{path: '/groupDetails', query: {groupname: item.groupName, id:item.id, username: item.username, hasEntered: false}}" v-for="item in searchlist" style="cursor: pointer">
+          <li>
+            <div>
+              {{item.groupName}}
+            </div>
+          </li>
+
+        </router-link>
+    </ul>
   </section>
   </section>
 </template>
@@ -33,6 +44,7 @@
             reminder: "搜索群聊名",
             searchlist: [],		//搜索字段数据
             groupname: '',
+            show: true,
           }
         },
         components: {
@@ -43,6 +55,7 @@
         },
         methods: {
           find() {
+              this.show = false
             if(this.groupname){
               this.axios({
                 method: "post",
@@ -54,6 +67,7 @@
                 crossDomain: true
               })
               .then(response => {
+                  console.log(response)
                 if(response.data.code == 200)
                   this.searchlist = response.data.data
               })
@@ -146,5 +160,29 @@
     border-right:0;
   }
   }
+  }
+  .changename{
+    padding-top: 3.06933rem;
+    ul{
+      background:#fff;
+      padding:0 0.64rem;
+      margin-bottom:1rem;
+      li{
+        border-bottom:1px solid #f1f1f1;
+        padding:0.4266666667rem 0;
+        @include sizeColor(0.64rem,#333);
+        @include justify;
+        align-items:center;
+        .push-button{
+
+        }
+        .voice-music{
+          @include sizeColor(0.512rem,#9c9c9c);
+        }
+      }
+      li:last-child{
+        border:0;
+      }
+    }
   }
 </style>

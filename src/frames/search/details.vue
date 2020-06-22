@@ -4,50 +4,54 @@
     <div class="details">
       <div class="details_li">
         <div class="details_left">
-          <img :src="this.headurl" alt="">
+          <img :src="avatar" alt="">
         </div>
         <div class="details_right">
           <div class="details_right_top">
-            <span>{{this.remarks ? this.remarks : this.$route.params.username}}</span>
+            <span>{{nickname ? nickname : username}}</span>
             <div class="sexsvg">
               <svg>
-                <use xmlns:xlink="http://www.w3.org/1999/xlink" :xlink:href=" this.sex == 0 ? '#boy' : '#girl' "></use>
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" :xlink:href=" gender == 1 ? '#girl' : '#boy' "></use>
               </svg>
             </div>
           </div>
           <div class="details_right_obt">
-            微信号：{{this.wxid}}
+            MSU号：{{username}}
           </div>
         </div>
       </div>
-      <div class="details_li">
-        <router-link to='' class="setnote">
-          设置备注和标签
-        </router-link>
-      </div>
+      <!--      <div class="details_li">-->
+      <!--        <router-link to='' class="setnote">-->
+      <!--          设置备注和标签-->
+      <!--        </router-link>-->
+      <!--      </div>-->
       <div class="details_person">
-        <div class="details_person_top">
-          <div class="area_details_left">
-            地区
-          </div>
-          <div class="area_details_right">
-            {{this.district}}
-          </div>
-        </div>
-        <div class="person_photo">
-          <router-link to='' class="details_person_a">
-            <div class="person_photo_left">
-              个人相册
-            </div>
-            <div class="person_photo_right clear">
-              <img :src="value" alt="" v-for="value in gallery">
-            </div>
-          </router-link>
-        </div>
-        <div class="details_person_more">
-          <router-link to='/addressbook/details/more' class="clickmore">
-            更多
-          </router-link>
+<!--        <div class="details_person_top">-->
+<!--          <div class="area_details_left">-->
+<!--            地区-->
+<!--          </div>-->
+<!--          <div class="area_details_right">-->
+<!--            {{this.district}}-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="person_photo">-->
+<!--          <router-link to='' class="details_person_a">-->
+<!--            <div class="person_photo_left">-->
+<!--              个人相册-->
+<!--            </div>-->
+<!--            <div class="person_photo_right clear">-->
+<!--              <img :src="value" alt="" v-for="value in gallery">-->
+<!--            </div>-->
+<!--          </router-link>-->
+<!--        </div>-->
+<!--        <div class="details_person_more">-->
+<!--          <router-link to='/addressbook/details/more' class="clickmore">-->
+<!--            更多-->
+<!--          </router-link>-->
+<!--        </div>-->
+        <div class="privacy_child" @click="gotoMenu('changeword')">
+          <span>个性签名</span>
+          <span>{{sign}}</span>
         </div>
       </div>
       <div class="sendmessage"><!--  -->
@@ -63,67 +67,87 @@
 </template>
 
 <script>
-  import headTop from 'src/components/header/head'
-  import {mapState, mapMutations} from 'vuex'
-  export default{
-    data(){
-      return{
-        gallery:[],		//个人相册
-        headurl:'',
-        remarks:'',
-        petname:'1',
-        sex: 0,
-        wxid:'',
-        username:'',
-        district:'',
-      }
-    },
-    created(){
-    },
-    mounted(){
-    },
-    components:{
-      headTop,
-    },
-    computed:{
-    },
-    methods:{
-      ...mapMutations([
-        "SAVE_DIALOGUE",
-      ]),
-      enterdDialogue(){
-        this.SAVE_DIALOGUE(this.infor);
-      },
-      sendRequest(){
-        this.axios({
-          method: 'post',
-          url: this.$store.state.baseurl+'friend/sendRequest',
-          data: {
-            sendName: localStorage.getItem('username'),
-            acceptName: this.$route.params.username,
-            Token:localStorage.getItem('token'),
-          },
-          crossDomain: true
-        }).then(body => {
-          console.log(body.data)
-          this.info = body
-          // 错误信息
-          if (this.info.data.code !== 200) {
-            console.log(this.info)
-            /*var that = this
-            this.password_wrong_show = true
-            this.error_img = 'request fail!'
-            setTimeout(function () {
-              that.password_wrong_show = false
-            }, 2000)*/
-          }
-          else{
-            this.$router.push('/dialogue')
-          }
-        })
-      },
+    import headTop from 'src/components/header/head'
+    import {mapState, mapMutations} from 'vuex'
+    export default{
+        data(){
+            return{
+                gallery:[],		//个人相册
+                username: '',
+                avatar: '',
+                nickname: '',
+                gender: 0,
+                sign: '',
+            }
+        },
+        created(){
+            this.axios({
+                method: 'post',
+                url: this.$store.state.baseurl+'user/home',
+                data: {
+                    username: this.$route.params.username,
+                    Token: this.$store.state.token
+                },
+                crossDomain: true
+            }).then(response => {
+                console.log('ggggggggggggggggg')
+                if (response.data.code !== 200) {
+                    this.$message.error("请求失败")
+                }
+                else{
+                    this.username = response.data.data.username
+                    this.avatar = response.data.data.faceImage
+                    this.nickname = response.data.data.nickname
+                    if (response.data.data.gender === 1)  this.gender = 1
+                    else this.gender = 0
+                    this.sign = response.data.data.userSignature
+                }
+            })
+        },
+        mounted(){
+        },
+        components:{
+            headTop,
+        },
+        computed:{
+        },
+        methods:{
+            ...mapMutations([
+                "SAVE_DIALOGUE",
+            ]),
+            enterdDialogue(){
+                this.SAVE_DIALOGUE(this.infor);
+            },
+            sendRequest(){
+                this.axios({
+                    method: 'post',
+                    url: this.$store.state.baseurl+'friend/sendRequest',
+                    data: {
+                        sendName: localStorage.getItem('username'),
+                        acceptName: this.$route.params.username,
+                        Token:localStorage.getItem('token'),
+                    },
+                    crossDomain: true
+                }).then(body => {
+                    console.log(body.data)
+                    this.info = body
+                    // 错误信息
+                    if (this.info.data.code !== 200) {
+                        console.log(this.info)
+                        /*var that = this
+                        this.password_wrong_show = true
+                        this.error_img = 'request fail!'
+                        setTimeout(function () {
+                          that.password_wrong_show = false
+                        }, 2000)*/
+                    }
+                    else{
+                        this.$router.push('/dialogue')
+                    }
+                })
+            },
+        }
     }
-  }
 </script>
 <style lang="scss" scoped>
   @import "src/style/public";
@@ -247,5 +271,32 @@
         line-height:2.0053333333rem;
       }
     }
+  }
+  .privacy_child{
+    @include justify(space-between);
+    border-bottom:1px solid #e2e2e2;
+    align-items:center;
+    position: relative;
+    span{
+      display:block;
+      @include sizeColor(0.64rem,#333);
+      @include align;
+      line-height:2.0266666667rem;
+    }
+    span+span{
+      @include sizeColor(0.5546666667rem,#999);
+    }
+    img{
+      display:block;
+      @include widthHeight(2.7306666667rem,2.7306666667rem);
+      margin:0.3413333333rem 0;
+    }
+    svg{
+      display:block;
+      @include widthHeight(0.768rem,0.768rem);
+    }
+  }
+  .privacy_child:last-child{
+    border:0;
   }
 </style>

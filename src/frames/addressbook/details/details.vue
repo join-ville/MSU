@@ -16,7 +16,7 @@
 						</div>
 					</div>
 					<div class="details_right_obt">
-						微信号：{{this.username}}
+						MSU号：{{this.username}}
 					</div>
 				</div>
 			</div>
