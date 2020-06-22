@@ -89,7 +89,7 @@
 
             }*/
             else{
-              console.log(this.info.data.data[0].username)
+              console.log(this.info.data.data.username)
               this.$router.push({
                 //path后面跟跳转的路由地址
                 path: '/searchResult',
@@ -97,7 +97,7 @@
                 name: 'searchResult',
                 params: {
                   //imgsListsUrl2是自己定义的名字，this.imgsListsUrl是要被传递的值
-                  username: this.info.data.data[0].username,
+                  username: this.info.data.data.username,
                 }
               })
 

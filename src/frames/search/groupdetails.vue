@@ -8,23 +8,24 @@
         </div>
         <div class="details_right">
           <div class="details_right_top">
-            <span>{{this.remarks ? this.remarks : this.$route.params.username}}</span>
-            <div class="sexsvg">
-              <svg>
-                <use xmlns:xlink="http://www.w3.org/1999/xlink" :xlink:href=" this.sex == 0 ? '#boy' : '#girl' "></use>
-              </svg>
-            </div>
+<!--            <span>{{this.remarks ? this.remarks : this.$route.params.username}}</span>-->
+            <span>{{this.groupname}}</span>
+<!--            <div class="sexsvg">-->
+<!--              <svg>-->
+<!--                <use xmlns:xlink="http://www.w3.org/1999/xlink" :xlink:href=" this.sex == 0 ? '#boy' : '#girl' "></use>-->
+<!--              </svg>-->
+<!--            </div>-->
           </div>
           <div class="details_right_obt">
             群聊号：{{this.id}}
           </div>
         </div>
       </div>
-      <div class="details_li">
-        <div class="setnote">
-          群聊名：{{this.groupname}}
-        </div>
-      </div>
+<!--      <div class="details_li">-->
+<!--        <div class="setnote">-->
+<!--          群聊名：{{this.groupname}}-->
+<!--        </div>-->
+<!--      </div>-->
       <div class="details_li">
         <li class="setnote">
           群主：{{this.username}}
