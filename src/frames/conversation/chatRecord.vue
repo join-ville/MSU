@@ -178,7 +178,7 @@
       position: fixed;
       width: 100%;
       height: 3rem;
-      background: #409eff;
+      background: #373b3e;
       max-width: 700px;
       display: flex;
       justify-content: center;
@@ -242,7 +242,7 @@
             animation: toLeft 0.5s ease both 1;
           }
           .right {
-            background: #53a8ff;
+            background: #46bf18;
             color: white;
             animation: toright 0.5s ease both 1;
           }

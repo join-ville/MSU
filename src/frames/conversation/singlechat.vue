@@ -233,7 +233,7 @@
       position: fixed;
       width: 100%;
       height: 3rem;
-      background: #409eff;
+      background: #373b3e;
       max-width: 700px;
       display: flex;
       justify-content: center;
@@ -259,7 +259,7 @@
       .crd {
         padding: 0.5rem;
         font-size: 0.7rem;
-        color: #409eff;
+        color: #46bf18;
         text-align: center;
       }
       .msg {
@@ -303,7 +303,7 @@
             animation: toLeft 0.5s ease both 1;
           }
           .right {
-            background: #53a8ff;
+            background: #46bf18;
             color: white;
             animation: toright 0.5s ease both 1;
           }
@@ -363,7 +363,7 @@
         transition: 0.5s;
       }
       .btn-active {
-        background: #409eff;
+        background: #46bf18;
       }
       svg {
         @include widthHeight(1.7rem,1.7rem);
