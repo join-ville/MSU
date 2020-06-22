@@ -71,7 +71,6 @@
                         ]
 
                     }
-                    alert(JSON.stringify(this.list));
                 }
             })
                 .catch(error => {

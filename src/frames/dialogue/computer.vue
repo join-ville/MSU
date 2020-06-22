@@ -59,7 +59,6 @@
           if (response.data.code == 200)
           {
             this.chatList = response.data.data;
-            alert(JSON.stringify(this.chatList));
           }
         })
     },
