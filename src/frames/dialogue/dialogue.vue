@@ -5,7 +5,7 @@
                   search-part="true"
                   add="true"></head-top>
         <div class="dialogue_con">
-            <!-- 电脑登录 -->
+            <!-- 电脑登录
             <section class="computer"
                      v-if="computershow">
                 <router-link to='/computer'
@@ -18,7 +18,9 @@
                     </section>
                     <section class="computer_text">Windows 微信已登录<span v-if="mute">， 手机通知已关闭</span></section>
                 </router-link>
-            </section>
+            </section>-->
+          <computer/>
+          <component :is="isCom" />
             <!-- 对话列表 -->
             <section class="conversation">
                 <ul>
@@ -94,6 +96,7 @@
 <script>
 import headTop from 'src/components/header/head'
 import footGuide from 'src/components/footer/foot'
+import computer from './computer'
 import { imgurl } from 'src/config/env';
 import { mapState, mapActions, mapMutations } from 'vuex'
 import { groupChat, userInfo, login, dialog } from 'src/service/getData'
@@ -156,9 +159,19 @@ export default {
     },
     components: {
         headTop,
-        footGuide
+        footGuide,
+        computer,
     },
     computed: {
+      isCom(){
+        const status = {
+          component:import("./computer"),
+          delay: 200,
+          timeout: 3000
+        }
+        if( this.$store.state.computershow)
+          return status;
+      },
         ...mapState([
             'mute', 'computershow', 'infor', 'contactList',
         ]),
