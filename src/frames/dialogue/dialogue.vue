@@ -23,7 +23,7 @@
             <section class="conversation">
                 <ul>
                     <router-link :to = "{path: item.isGroup==1 ? '/groupchat': '/singlechat',
-                                 query:{userId:item.myId, receiverId:item.myFriendId}}"
+                                 query:{userId:item.myId, receiverId:item.myFriendId,receiverImage:item.myFriendImage}}"
                                  v-for="(item,index) in chatList"
                                  :key="index"
                                  tag="li">
