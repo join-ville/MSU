@@ -1,11 +1,13 @@
 import App from '../App'
 
+import changeAvatar from "../frames/me/personaldetails/change/changeAvatar";
 import changename from "../frames/me/personaldetails/change/changename"
 import changesex from "../frames/me/personaldetails/change/changesex"
 import changeword from "../frames/me/personaldetails/change/changeword"
 import writeFC from "../frames/find/friendcircle/writeFC";
 
 import upload from "../frames/upload/upload";
+
 
 const imgupload = r => require.ensure([], () => r(require('../frames/upload/upload')), 'imgupload')
 
@@ -178,6 +180,10 @@ export default[{
 				{
 					path:'/me/personaldetails',component : personaldetails,		//个人信息
           children: [
+            {
+              path:'/me/personaldetails/changeAvatar',
+              component:changeAvatar,
+            },   //设置头像
             {
               path:'/me/personaldetails/changename',
               component:changename,

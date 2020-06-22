@@ -165,6 +165,10 @@
             var that = this
             this.userName = body.data.data.username
             this.nickName = body.data.data.nickname
+            this.userHeader = body.data.data.faceImage
+
+            this.$store.state.head = this.userHeader
+            localStorage.setItem('haead',this.userHeader) //  本地存储更新userHeader
 
             this.$store.state.nickname = this.nickName
             localStorage.setItem('nickname',this.nickName)  // 本地存储更新nickname
@@ -196,6 +200,7 @@
     watch:{
         '$route'(){
             this.nickName = this.$store.state.nickname
+            this.userHeader = this.$store.state.head
         }
     },
 		components:{

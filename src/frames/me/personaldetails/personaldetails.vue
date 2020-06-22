@@ -3,7 +3,7 @@
 		<head-top crossover="个人信息"></head-top>
 		<section class="privacy">
 			<section class="privacy_top">
-				<div class="privacy_child" v-on:click="changeAvatar">
+				<div class="privacy_child" v-on:click="gotoMenu('changeAvatar')">
 					<span>头像</span>
 					<img :src="userHeader" alt="">
 				</div>
@@ -56,6 +56,7 @@
 			return{
 				// userInfo:{},			//用户信息
 				// userHeader:'',			//用户头像
+          userHeader: '',
           userName: '',
           nickName: '',
           gender: -1,
@@ -77,12 +78,16 @@
             this.info = body
 
             var that = this
+            this.userHeader = body.data.data.faceImage
             this.userName = body.data.data.username
             this.nickName = body.data.data.nickname
             if (body.data.data.gender === 1)  this.gender = 1
               else this.gender = 0
             // this.gender = body.data.data.gender
             this.word = body.data.data.userSignature
+
+            this.$store.state.head = this.userHeader
+            localStorage.setItem('head',this.userHeader) //  本地存储更新userHeader
 
             this.$store.state.nickname = this.nickName
             localStorage.setItem('nickname',this.nickName)  // 本地存储更新nickname
@@ -112,6 +117,7 @@
 		},
     watch:{
 		    '$route'(){
+		        this.userHeader = this.$store.state.head
 		        this.nickName = this.$store.state.nickname
             this.gender = this.$store.state.gender
             this.word = this.$store.state.sign
@@ -131,9 +137,7 @@
 		    gotoMenu(a){
 		      this.$router.push('/me/personaldetails/'+a);
         },
-        changeAvatar() {
-		      this.$router.push('/imageupload')
-        }
+
 
 			// ...mapActions([
 			// 	'getUserInfo',
