@@ -101,11 +101,12 @@ export default[{
 			children: [
 				{
 					path: '/addressbook/details',
-          name: 'frienddetails',
+          name: '/addressbook/details',
 					component: details,		//详细资料
 					children: [
 						{
 							path: '/addressbook/details/more',
+              name: '/addressbook/details/more',
 							component:more,		//更多
 						}
 					]

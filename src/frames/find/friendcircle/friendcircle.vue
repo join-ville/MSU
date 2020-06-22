@@ -21,8 +21,9 @@
                          :class="{shoowimg : imagestatus}">轻触更换主题照片</div>
                     <div class="personImg">
                         <div class="personame">{{userName}}</div>
-                        <div class="headimg"
-                             @click="personInfor">
+                        <div class="headimg">
+<!--                             @click="personInfor"-->
+
                             <img :src="userAvatar"
                                  alt="">
                         </div>

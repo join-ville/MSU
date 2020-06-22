@@ -4,14 +4,14 @@
 		<div class="details">
 			<div class="details_li">
 				<div class="details_left">
-					<img :src="infor.headurl" alt="">
+					<img :src="avatar" alt="">
 				</div>
 				<div class="details_right">
 					<div class="details_right_top">
-						<span>{{infor.remarks ? infor.remarks : infor.petname}}</span>
+						<span>{{nickname ? nickname : username}}</span>
 						<div class="sexsvg">
 							<svg>
-								<use xmlns:xlink="http://www.w3.org/1999/xlink" :xlink:href=" infor.sex == 0 ? '#boy' : '#girl' "></use>
+								<use xmlns:xlink="http://www.w3.org/1999/xlink" :xlink:href=" gender == 1 ? '#girl' : '#boy' "></use>
 							</svg>
 						</div>
 					</div>
@@ -20,20 +20,20 @@
 					</div>
 				</div>
 			</div>
-			<div class="details_li">
-				<router-link to='' class="setnote">
-					设置备注和标签{{this.username}}
-				</router-link>
-			</div>
+<!--			<div class="details_li">-->
+<!--				<router-link to='' class="setnote">-->
+<!--					设置备注和标签{{this.username}}-->
+<!--				</router-link>-->
+<!--			</div>-->
 			<div class="details_person">
-				<div class="details_person_top">
-					<div class="area_details_left">
-						地区
-					</div>
-					<div class="area_details_right">
-						{{infor.district}}
-					</div>
-				</div>
+<!--				<div class="details_person_top">-->
+<!--					<div class="area_details_left">-->
+<!--						地区-->
+<!--					</div>-->
+<!--					<div class="area_details_right">-->
+<!--						{{infor.district}}-->
+<!--					</div>-->
+<!--				</div>-->
 				<div class="person_photo">
 					<router-link to='' class="details_person_a">
 						<div class="person_photo_left">
@@ -45,7 +45,7 @@
 					</router-link>
 				</div>
 				<div class="details_person_more">
-					<router-link to='/addressbook/details/more' class="clickmore">
+					<router-link class="clickmore" :to="{name: '/addressbook/details/more', params: {sign: sign}}">
 							更多
 					</router-link>
 				</div>
@@ -76,13 +76,20 @@
 	  inject: ['reload'],
 		data(){
 			return{
-				gallery:[],		//个人相册
-        username
+				gallery: [],		//个人相册
+        username: '',
+        avatar: '',
+        nickname: '',
+        gender: 0,
+        sign: '',
 			}
 		},
 		created(){
-
-      this.username=this.$route.query.username
+        this.username=this.$route.params.username
+        this.nickname = this.$route.params.nickname
+        this.avatar = this.$route.params.faceImage
+        this.gender = this.$route.params.gender
+        this.sign = this.$route.params.sign
 		},
 		mounted(){
 

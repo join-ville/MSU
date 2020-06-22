@@ -86,14 +86,19 @@
                         class="addlistLi">
                         <h1>{{key}}</h1> <!--the first letter -->
                         <ul>
-                            <router-link :to="{path: '/addressbook/details', query: {username: item.username}}"
+                            <router-link :to="{name: '/addressbook/details', params: {username: item.username,
+                                                                                      nickname: item.nickname,
+                                                                                      faceImage: item.faceImage,
+                                                                                      sign: item.userSignature,
+                                                                                      gender: item.gender
+                                                                                      }}"
                                          style="cursor: pointer"
                                          tag="li"
                                          v-for="(item, indexLink) in value"
                                          :key="indexLink"
                                          @click.native='detailMessage(item)'>
                                 <div class="personlist_img">
-                                    <img :src="item.headurl"
+                                    <img :src="item.faceImage"
                                          alt="">
                                 </div>
                                 <div class="personlist_name ellipsis">
@@ -156,7 +161,7 @@ export default {
     data() {
         return {
             contactList: {},		//所有通讯录列表
-            peoplenum: null,		//通讯录人数
+            peoplenum: 0,		//通讯录人数
             letter: false,		//字母放大
             newRequest:false,
             RequestName:'join11',
@@ -180,6 +185,7 @@ export default {
           .then(response => {
               if (response.data.code == 200)
                 this.contactList = response.data.data
+                console.log(this.contactList)
           })
           .catch(error => {
           })
@@ -327,9 +333,10 @@ export default {
       },
 
         detailMessage(item) {
-            this.SAVE_MESSAGE(item);
-            this.$store.state.gotoDetail=item.username
+            // this.SAVE_MESSAGE(item);
+            // this.$store.state.gotoDetail=item.username
             //this.$router.push({ name: 'addressbook/details', params: { username: item.username}});
+            // console.log(item)
         },
         startThing(value) {
             this.letter = true;

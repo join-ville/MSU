@@ -1,15 +1,15 @@
 <template>
 	<section class="child_page">
-		<head-top crossover="微信"></head-top>
+		<head-top crossover="更多"></head-top>
 		<section class="more">
 			<div>
-				<span>个性签名</span><span>{{infor.sdasd}}</span>
+				<span>个性签名</span><span>{{sign}}</span>
 			</div>
-			<div>
-				<span>来源</span><span>{{infor.source}}</span>
-			</div>
+<!--			<div>-->
+<!--				<span>来源</span><span>{{infor.source}}</span>-->
+<!--			</div>-->
 		</section>
-	</section>	
+	</section>
 </template>
 
 <script>
@@ -18,14 +18,14 @@
 	export default{
 		data(){
 			return{
-				
+			    sign: this.$route.params.sign
 			}
 		},
 		created(){
 
 		},
 		mounted(){
-			
+
 		},
 		components:{
 			headTop,
