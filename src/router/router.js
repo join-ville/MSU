@@ -17,6 +17,7 @@ const imageupload = r => require.ensure([], () => r(require('../frames/conversat
 const groupchat = r => require.ensure([], () => r(require('../frames/conversation/groupchat')), 'groupchat')
 const chatmessage = r => require.ensure([], () => r(require('../frames/conversation/chatmessage/chatmessage')), 'chatmessage')
 const chatRecord = r => require.ensure([], () => r(require('../frames/conversation/chatRecord')), 'chatRecord')
+const groupChatRecord = r => require.ensure([], () => r(require('../frames/conversation/groupChatRecord')), 'groupChatRecord')
 const groupchatmessage = r => require.ensure([], () => r(require('../frames/conversation/chatmessage/groupchatmessage')), 'groupchatmessage')
 const createGroupChat = r => require.ensure([], () => r(require('../frames/conversation/createGroupChat')), 'createGroupChat')
 
@@ -79,6 +80,11 @@ export default[{
       name: 'chatRecord',
       path: '/chatRecord',
       component: chatRecord,
+    },
+    {
+      name: 'groupChatRecord',
+      path: '/groupChatRecord',
+      component: groupChatRecord,
     },
     {
 			path: '/groupchat',
