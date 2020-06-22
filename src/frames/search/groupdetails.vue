@@ -43,7 +43,7 @@
         </section>
       </div>
       <div>
-        <section>
+        <section v-if="hasEntered">
           <span style="cursor:pointer">
             <div class="cancelgroup"><!--  -->
             <div class="send" v-on:click="cancelGroup">
@@ -78,6 +78,7 @@
           this.username = this.$route.query.username
           this.id = this.$route.query.id
           this.hasEntered = this.$route.query.hasEntered
+            console.log(this.hasEntered)
         },
         methods: {
           sendRequest() {

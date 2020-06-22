@@ -22,7 +22,7 @@
   <section class="changename" v-if="!show">
     <ul>群名</ul>
     <ul>
-        <router-link :to="{path: '/groupDetails', query: {groupname: item.groupName, id:item.id, username: item.username, hasEntered: false}}" v-for="item in searchlist" style="cursor: pointer">
+        <router-link :to="{path: '/groupDetails', query: {groupname: item.groupName, id:item.id, username: item.username, hasEntered: item.isJoined}}" v-for="item in searchlist" style="cursor: pointer">
           <li>
             <div>
               {{item.groupName}}
@@ -68,6 +68,7 @@
               })
               .then(response => {
                   console.log(response)
+                  console.log('666')
                 if(response.data.code == 200)
                   this.searchlist = response.data.data
               })
