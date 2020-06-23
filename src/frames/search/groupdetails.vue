@@ -93,8 +93,12 @@
               crossDomain: true
             })
             .then(response => {
-              if(response.data.data == 200)
-                alert("入群成功")
+                console.log(response)
+              if(response.data.code == 200) {
+                  this.$message.success("入群成功")
+                  this.$router.go(-1)
+              }
+
             })
           },
           cancelGroup() {
@@ -111,8 +115,7 @@
             .then(response => {
               if(response.data.code == 200)
               {
-                this.reload()
-                this.$router.push('/grouplist')
+                this.$router.go('-1')
               }
             })
           }

@@ -49,13 +49,13 @@
 <!--            更多-->
 <!--          </router-link>-->
 <!--        </div>-->
-        <div class="privacy_child" @click="gotoMenu('changeword')">
+        <div class="privacy_child">
           <span>个性签名</span>
           <span>{{sign}}</span>
         </div>
       </div>
       <div class="sendmessage"><!--  -->
-        <section class="send" @click="sendRequest">
+        <section class="send" @click="sendRequest" v-if="!this.$route.query.username">
           申请添加好友
         </section>
       </div>
@@ -81,16 +81,20 @@
             }
         },
         created(){
+            if (this.$route.params.username)
+                this.username = this.$route.params.username
+            else
+                this.username = this.$route.query.username
             this.axios({
                 method: 'post',
                 url: this.$store.state.baseurl+'user/home',
                 data: {
-                    username: this.$route.params.username,
+                    username: this.username,
                     Token: this.$store.state.token
                 },
                 crossDomain: true
             }).then(response => {
-                console.log('ggggggggggggggggg')
+                // console.log('ggggggggggggggggg')
                 if (response.data.code !== 200) {
                     this.$message.error("请求失败")
                 }
@@ -133,7 +137,8 @@
                     this.info = body
                     // 错误信息
                     if (this.info.data.code !== 200) {
-                        console.log(this.info)
+                        // console.log(this.info)
+                        this.$message.error(body.data.data)
                         /*var that = this
                         this.password_wrong_show = true
                         this.error_img = 'request fail!'
@@ -142,6 +147,7 @@
                         }, 2000)*/
                     }
                     else{
+                        this.$message.success('已发送申请')
                         this.$router.push('/dialogue')
                     }
                 })

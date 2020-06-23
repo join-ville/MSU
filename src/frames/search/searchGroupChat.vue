@@ -19,7 +19,7 @@
       搜索
     </div>
   </section>
-  <section class="changename" v-if="!show">
+  <section class="changename" v-if="!show && searchlist.length">
     <ul>群名</ul>
     <ul>
         <router-link :to="{path: '/groupDetails', query: {groupname: item.groupName, id:item.id, username: item.username, hasEntered: item.isJoined}}" v-for="item in searchlist" style="cursor: pointer">
@@ -55,7 +55,7 @@
         },
         methods: {
           find() {
-              this.show = false
+
             if(this.groupname){
               this.axios({
                 method: "post",
@@ -68,9 +68,15 @@
               })
               .then(response => {
                   console.log(response)
-                  console.log('666')
-                if(response.data.code == 200)
-                  this.searchlist = response.data.data
+                  console.log(response.data.data.length)
+                if(response.data.code == 200) {
+                    if(!response.data.data.length) this.$message.error('无搜索结果')
+                    else {
+                        this.searchlist = response.data.data
+                        this.show = false
+                    }
+
+                }
               })
             }
 

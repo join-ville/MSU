@@ -89,17 +89,24 @@
 
             }*/
             else{
-              console.log(this.info.data.data.username)
-              this.$router.push({
-                //path后面跟跳转的路由地址
-                path: '/searchResult',
-                //name后面跟跳转的路由名字（必须有亲测，不使用命名路由会传参失败）
-                name: 'searchResult',
-                params: {
-                  //imgsListsUrl2是自己定义的名字，this.imgsListsUrl是要被传递的值
-                  username: this.info.data.data.username,
+                if(!body.data.data.username) {
+                    this.$message.error('无结果')
                 }
-              })
+                else {
+                    console.log(this.info.data.data.username)
+                    this.$router.push({
+                        //path后面跟跳转的路由地址
+                        path: '/searchResult',
+                        //name后面跟跳转的路由名字（必须有亲测，不使用命名路由会传参失败）
+                        name: 'searchResult',
+                        params: {
+                            //imgsListsUrl2是自己定义的名字，this.imgsListsUrl是要被传递的值
+                            username: this.info.data.data.username,
+                        }
+                    })
+                }
+
+
 
             }
           })
